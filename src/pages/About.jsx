@@ -8,6 +8,7 @@ import {
   ArrowLeft,
   ArrowUpRight,
   ArrowDown,
+  ArrowRight,
 } from "lucide-react";
 
 import {
@@ -18,6 +19,13 @@ import {
   useRef,
 } from "react";
 
+
+const EASE = [0.16, 1, 0.3, 1];
+
+
+// =====================================================
+// ABOUT PAGE
+// =====================================================
 
 function About() {
 
@@ -110,6 +118,69 @@ function About() {
   ];
 
 
+  // =====================================================
+  // PROCESS DATA
+  // =====================================================
+
+  const process = [
+    {
+      number: "01",
+      title: "Discover",
+      description:
+        "We listen first. Your story, your people, your vision and what makes the occasion yours.",
+    },
+
+    {
+      number: "02",
+      title: "Plan",
+      description:
+        "We shape the creative direction, understand the event and prepare around the moments that matter.",
+    },
+
+    {
+      number: "03",
+      title: "Create",
+      description:
+        "We capture the energy, emotion and atmosphere while allowing the day to unfold naturally.",
+    },
+
+    {
+      number: "04",
+      title: "Remember",
+      description:
+        "Your moments become photographs, films and stories designed to take you back there.",
+    },
+  ];
+
+
+  // =====================================================
+  // VALUES
+  // =====================================================
+
+  const values = [
+    {
+      number: "01",
+      title: "Emotion",
+      description:
+        "We look beyond what happened and focus on how it felt.",
+    },
+
+    {
+      number: "02",
+      title: "Intent",
+      description:
+        "Every frame has a reason. Every story deserves a point of view.",
+    },
+
+    {
+      number: "03",
+      title: "Story",
+      description:
+        "Because the strongest memories are never just a collection of images.",
+    },
+  ];
+
+
   return (
     <main className="bg-black text-white">
 
@@ -138,9 +209,7 @@ function About() {
         >
 
 
-          {/* =================================================
-              HERO IMAGE
-          ================================================= */}
+          {/* HERO IMAGE */}
 
           <motion.div
             style={{
@@ -159,6 +228,8 @@ function About() {
             <img
               src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2400&q=90"
               alt="Wedding couple"
+              loading="eager"
+              decoding="async"
               className="
                 h-full
                 w-full
@@ -169,9 +240,7 @@ function About() {
           </motion.div>
 
 
-          {/* =================================================
-              DARK OVERLAY
-          ================================================= */}
+          {/* DARK OVERLAY */}
 
           <div
             className="
@@ -183,9 +252,7 @@ function About() {
           />
 
 
-          {/* =================================================
-              CINEMATIC GRADIENT
-          ================================================= */}
+          {/* CINEMATIC GRADIENT */}
 
           <div
             className="
@@ -200,9 +267,7 @@ function About() {
           />
 
 
-          {/* =================================================
-              NAVIGATION
-          ================================================= */}
+          {/* NAVIGATION */}
 
           <div
             className="
@@ -270,9 +335,7 @@ function About() {
           </div>
 
 
-          {/* =================================================
-              HERO CONTENT
-          ================================================= */}
+          {/* HERO CONTENT */}
 
           <motion.div
             style={{
@@ -312,7 +375,7 @@ function About() {
 
                 transition={{
                   duration: 0.9,
-                  ease: [0.16, 1, 0.3, 1],
+                  ease: EASE,
                 }}
 
                 className="
@@ -344,7 +407,7 @@ function About() {
                 transition={{
                   duration: 1.3,
                   delay: 0.1,
-                  ease: [0.16, 1, 0.3, 1],
+                  ease: EASE,
                 }}
 
                 className="
@@ -372,7 +435,7 @@ function About() {
                 transition={{
                   duration: 1,
                   delay: 0.45,
-                  ease: [0.16, 1, 0.3, 1],
+                  ease: EASE,
                 }}
 
                 className="
@@ -405,9 +468,7 @@ function About() {
           </motion.div>
 
 
-          {/* =================================================
-              SCROLL INDICATOR
-          ================================================= */}
+          {/* SCROLL INDICATOR */}
 
           <motion.div
             initial={{
@@ -500,8 +561,6 @@ function About() {
             "
           >
 
-            {/* LABEL */}
-
             <motion.div
               initial={{
                 opacity: 0,
@@ -538,8 +597,6 @@ function About() {
 
             </motion.div>
 
-
-            {/* TEXT */}
 
             <motion.div
               initial={{
@@ -636,8 +693,6 @@ function About() {
           "
         >
 
-          {/* SMALL IMAGE */}
-
           <motion.div
             initial={{
               opacity: 0,
@@ -656,7 +711,7 @@ function About() {
 
             transition={{
               duration: 1.1,
-              ease: [0.16, 1, 0.3, 1],
+              ease: EASE,
             }}
 
             className="
@@ -678,6 +733,8 @@ function About() {
 
               src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=85"
               alt="Wedding moment"
+              loading="lazy"
+              decoding="async"
               className="
                 h-full
                 w-full
@@ -687,8 +744,6 @@ function About() {
 
           </motion.div>
 
-
-          {/* LARGE IMAGE */}
 
           <motion.div
             initial={{
@@ -709,7 +764,7 @@ function About() {
             transition={{
               duration: 1.1,
               delay: 0.15,
-              ease: [0.16, 1, 0.3, 1],
+              ease: EASE,
             }}
 
             className="
@@ -731,6 +786,8 @@ function About() {
 
               src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=90"
               alt="Couple celebrating"
+              loading="lazy"
+              decoding="async"
               className="
                 h-full
                 w-full
@@ -890,6 +947,507 @@ function About() {
 
 
       {/* =====================================================
+          UNBOUND SIGNATURE
+      ===================================================== */}
+
+      <section
+        className="
+          border-t
+          border-white/10
+          bg-black
+          px-6
+          py-32
+          md:px-10
+          md:py-48
+        "
+      >
+
+        <div className="mx-auto max-w-7xl">
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 60,
+            }}
+
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+
+            transition={{
+              duration: 1,
+              ease: EASE,
+            }}
+          >
+
+            <p
+              className="
+                mb-8
+                text-[9px]
+                uppercase
+                tracking-[0.5em]
+                text-white/25
+              "
+            >
+              The UNBOUND signature
+            </p>
+
+
+            <h2
+              className="
+                text-[15vw]
+                font-light
+                leading-[0.72]
+                tracking-[-0.08em]
+                md:text-[10vw]
+              "
+            >
+              CREATE.
+              <br />
+              <span className="text-white/35">
+                CAPTURE.
+              </span>
+              <br />
+              TELL.
+            </h2>
+
+
+            <div
+              className="
+                mt-16
+                flex
+                flex-col
+                gap-8
+                md:flex-row
+                md:items-end
+                md:justify-between
+              "
+            >
+
+              <p
+                className="
+                  max-w-xl
+                  text-base
+                  leading-8
+                  text-white/45
+                  md:text-lg
+                "
+              >
+                We create the experience, capture the feeling
+                and tell the story that remains long after
+                the celebration is over.
+              </p>
+
+
+              <span
+                className="
+                  text-[8px]
+                  uppercase
+                  tracking-[0.45em]
+                  text-white/20
+                "
+              >
+                Photography · Films · Experiences
+              </span>
+
+            </div>
+
+          </motion.div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          OUR PROCESS
+      ===================================================== */}
+
+      <section
+        className="
+          border-t
+          border-white/10
+          bg-[#050505]
+          px-6
+          py-32
+          md:px-10
+          md:py-48
+        "
+      >
+
+        <div className="mx-auto max-w-7xl">
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+
+            viewport={{
+              once: true,
+            }}
+
+            transition={{
+              duration: 1,
+              ease: EASE,
+            }}
+          >
+
+            <p
+              className="
+                mb-8
+                text-[9px]
+                uppercase
+                tracking-[0.5em]
+                text-white/25
+              "
+            >
+              Our process
+            </p>
+
+
+            <div
+              className="
+                flex
+                flex-col
+                gap-8
+                md:flex-row
+                md:items-end
+                md:justify-between
+              "
+            >
+
+              <h2
+                className="
+                  max-w-5xl
+                  text-5xl
+                  font-light
+                  leading-[0.9]
+                  tracking-[-0.06em]
+                  md:text-7xl
+                  lg:text-[6.5vw]
+                "
+              >
+                From first idea
+                <br />
+                to lasting memory.
+              </h2>
+
+
+              <p
+                className="
+                  max-w-sm
+                  text-sm
+                  leading-7
+                  text-white/35
+                "
+              >
+                A simple process built around
+                communication, creativity and
+                the moments that matter.
+              </p>
+
+            </div>
+
+          </motion.div>
+
+
+          <div
+            className="
+              mt-24
+              divide-y
+              divide-white/10
+              border-y
+              border-white/10
+              md:mt-32
+            "
+          >
+
+            {process.map((item, index) => (
+
+              <motion.div
+                key={item.number}
+                initial={{
+                  opacity: 0,
+                  y: 40,
+                }}
+
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+
+                viewport={{
+                  once: true,
+                  amount: 0.2,
+                }}
+
+                transition={{
+                  delay: index * 0.08,
+                  duration: 0.8,
+                  ease: EASE,
+                }}
+
+                className="
+                  group
+                  grid
+                  gap-6
+                  py-10
+                  md:grid-cols-[100px_1fr_1fr]
+                  md:items-center
+                  md:py-14
+                "
+              >
+
+                <span
+                  className="
+                    text-[9px]
+                    uppercase
+                    tracking-[0.4em]
+                    text-white/25
+                  "
+                >
+                  {item.number}
+                </span>
+
+
+                <h3
+                  className="
+                    text-4xl
+                    font-light
+                    tracking-[-0.05em]
+                    transition-transform
+                    duration-500
+                    group-hover:translate-x-2
+                    md:text-6xl
+                  "
+                >
+                  {item.title}
+                </h3>
+
+
+                <p
+                  className="
+                    max-w-md
+                    text-sm
+                    leading-7
+                    text-white/35
+                    md:text-base
+                  "
+                >
+                  {item.description}
+                </p>
+
+              </motion.div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          VALUES
+      ===================================================== */}
+
+      <section
+        className="
+          bg-black
+          px-6
+          py-32
+          md:px-10
+          md:py-48
+        "
+      >
+
+        <div className="mx-auto max-w-7xl">
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+
+            viewport={{
+              once: true,
+            }}
+
+            transition={{
+              duration: 1,
+            }}
+          >
+
+            <p
+              className="
+                mb-8
+                text-[9px]
+                uppercase
+                tracking-[0.5em]
+                text-white/25
+              "
+            >
+              What we believe
+            </p>
+
+
+            <h2
+              className="
+                max-w-5xl
+                text-5xl
+                font-light
+                leading-[0.92]
+                tracking-[-0.06em]
+                md:text-7xl
+                lg:text-[6vw]
+              "
+            >
+              Emotion over
+              <br />
+              perfection.
+            </h2>
+
+          </motion.div>
+
+
+          <div
+            className="
+              mt-24
+              grid
+              grid-cols-1
+              gap-px
+              overflow-hidden
+              border
+              border-white/10
+              bg-white/10
+              md:grid-cols-3
+            "
+          >
+
+            {values.map((value, index) => (
+
+              <motion.div
+                key={value.number}
+                initial={{
+                  opacity: 0,
+                  y: 50,
+                }}
+
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+
+                viewport={{
+                  once: true,
+                  amount: 0.2,
+                }}
+
+                transition={{
+                  delay: index * 0.1,
+                  duration: 0.8,
+                  ease: EASE,
+                }}
+
+                className="
+                  group
+                  bg-black
+                  p-8
+                  md:p-10
+                  lg:p-12
+                "
+              >
+
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-between
+                  "
+                >
+
+                  <span
+                    className="
+                      text-[9px]
+                      uppercase
+                      tracking-[0.4em]
+                      text-white/25
+                    "
+                  >
+                    {value.number}
+                  </span>
+
+
+                  <ArrowUpRight
+                    size={17}
+                    strokeWidth={1}
+                    className="
+                      text-white/20
+                      transition-all
+                      duration-500
+                      group-hover:-translate-y-1
+                      group-hover:translate-x-1
+                      group-hover:text-white
+                    "
+                  />
+
+                </div>
+
+
+                <h3
+                  className="
+                    mt-20
+                    text-4xl
+                    font-light
+                    tracking-[-0.05em]
+                    md:text-5xl
+                  "
+                >
+                  {value.title}
+                </h3>
+
+
+                <p
+                  className="
+                    mt-6
+                    text-sm
+                    leading-7
+                    text-white/35
+                  "
+                >
+                  {value.description}
+                </p>
+
+              </motion.div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
           FULL WIDTH CINEMATIC IMAGE
       ===================================================== */}
 
@@ -918,7 +1476,7 @@ function About() {
 
           transition={{
             duration: 1.5,
-            ease: [0.16, 1, 0.3, 1],
+            ease: EASE,
           }}
 
           className="
@@ -930,6 +1488,8 @@ function About() {
           <img
             src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=2400&q=90"
             alt="Celebration"
+            loading="lazy"
+            decoding="async"
             className="
               h-full
               w-full
@@ -1119,6 +1679,8 @@ function About() {
                   <img
                     src={service.image}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="
                       h-full
                       w-full
@@ -1228,7 +1790,201 @@ function About() {
 
 
       {/* =====================================================
-          CLOSING
+          BEHIND UNBOUND
+      ===================================================== */}
+
+      <section
+        className="
+          border-t
+          border-white/10
+          bg-[#050505]
+          px-6
+          py-32
+          md:px-10
+          md:py-48
+        "
+      >
+
+        <div
+          className="
+            mx-auto
+            grid
+            max-w-7xl
+            grid-cols-1
+            gap-16
+            md:grid-cols-12
+            md:gap-10
+          "
+        >
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: -50,
+            }}
+
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+
+            transition={{
+              duration: 1,
+              ease: EASE,
+            }}
+
+            className="md:col-span-5"
+          >
+
+            <p
+              className="
+                text-[9px]
+                uppercase
+                tracking-[0.5em]
+                text-white/25
+              "
+            >
+              Behind UNBOUND
+            </p>
+
+
+            <h2
+              className="
+                mt-8
+                text-5xl
+                font-light
+                leading-[0.92]
+                tracking-[-0.06em]
+                md:text-7xl
+              "
+            >
+              Built around
+              <br />
+              <span className="text-white/30">
+                people.
+              </span>
+            </h2>
+
+          </motion.div>
+
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+
+            transition={{
+              duration: 1,
+              delay: 0.15,
+              ease: EASE,
+            }}
+
+            className="md:col-span-7"
+          >
+
+            <div
+              className="
+                border
+                border-white/10
+                p-8
+                md:p-12
+              "
+            >
+
+              <p
+                className="
+                  text-xl
+                  font-light
+                  leading-8
+                  tracking-[-0.02em]
+                  text-white/75
+                  md:text-2xl
+                  md:leading-9
+                "
+              >
+                UNBOUND was built from a simple belief:
+                extraordinary moments deserve to be remembered
+                in a way that feels as real as living them.
+              </p>
+
+
+              <p
+                className="
+                  mt-8
+                  max-w-xl
+                  text-sm
+                  leading-7
+                  text-white/35
+                  md:text-base
+                "
+              >
+                We're building a creative event house around
+                photography, cinematic storytelling and
+                unforgettable experiences — one celebration
+                at a time.
+              </p>
+
+
+              <div
+                className="
+                  mt-10
+                  flex
+                  items-center
+                  gap-4
+                  border-t
+                  border-white/10
+                  pt-8
+                "
+              >
+
+                <span
+                  className="
+                    h-px
+                    w-10
+                    bg-white/30
+                  "
+                />
+
+                <span
+                  className="
+                    text-[8px]
+                    uppercase
+                    tracking-[0.45em]
+                    text-white/25
+                  "
+                >
+                  The beginning of something
+                </span>
+
+              </div>
+
+            </div>
+
+          </motion.div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          CLOSING CTA
       ===================================================== */}
 
       <section
@@ -1258,6 +2014,8 @@ function About() {
           <img
             src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2200&q=80"
             alt=""
+            loading="lazy"
+            decoding="async"
             className="
               h-full
               w-full
@@ -1296,12 +2054,14 @@ function About() {
 
           transition={{
             duration: 1,
-            ease: [0.16, 1, 0.3, 1],
+            ease: EASE,
           }}
 
           className="
             relative
             z-10
+            w-full
+            max-w-6xl
           "
         >
 
@@ -1336,6 +2096,21 @@ function About() {
           </h2>
 
 
+          <p
+            className="
+              mx-auto
+              mt-8
+              max-w-md
+              text-sm
+              leading-7
+              text-white/40
+            "
+          >
+            Tell us your date, your occasion and what
+            you're imagining. We'll take it from there.
+          </p>
+
+
           <Link
             to="/contact"
             className="
@@ -1343,22 +2118,27 @@ function About() {
               mt-12
               inline-flex
               items-center
-              gap-4
-              border-b
-              border-white/20
-              pb-3
-              text-[10px]
+              gap-5
+              rounded-full
+              border
+              border-white/25
+              bg-white/[0.04]
+              px-7
+              py-4
+              text-[9px]
               uppercase
-              tracking-[0.35em]
-              text-white/60
+              tracking-[0.4em]
+              text-white/75
+              backdrop-blur-md
               transition-all
               duration-500
               hover:border-white
-              hover:text-white
+              hover:bg-white
+              hover:text-black
             "
           >
 
-            Start a conversation
+            CHECK YOUR DATE
 
             <ArrowUpRight
               size={16}
@@ -1373,9 +2153,100 @@ function About() {
 
           </Link>
 
+
+          <Link
+            to="/contact"
+            className="
+              group
+              mt-5
+              flex
+              items-center
+              justify-center
+              gap-3
+              text-[8px]
+              uppercase
+              tracking-[0.4em]
+              text-white/30
+              transition-colors
+              duration-300
+              hover:text-white
+            "
+          >
+
+            Start a conversation
+
+            <ArrowRight
+              size={13}
+              strokeWidth={1}
+              className="
+                transition-transform
+                duration-300
+                group-hover:translate-x-1
+              "
+            />
+
+          </Link>
+
         </motion.div>
 
       </section>
+
+
+      {/* =====================================================
+          FOOTER
+      ===================================================== */}
+
+      <footer
+        className="
+          border-t
+          border-white/10
+          bg-black
+          px-6
+          py-10
+          md:px-10
+        "
+      >
+
+        <div
+          className="
+            mx-auto
+            flex
+            max-w-7xl
+            flex-col
+            gap-6
+            text-[9px]
+            uppercase
+            tracking-[0.35em]
+            text-white/30
+            md:flex-row
+            md:items-center
+            md:justify-between
+          "
+        >
+
+          <span>
+            UNBOUND
+          </span>
+
+
+          <span>
+            Weddings · Events · Stories
+          </span>
+
+
+          <Link
+            to="/contact"
+            className="
+              transition-colors
+              hover:text-white
+            "
+          >
+            Start a conversation
+          </Link>
+
+        </div>
+
+      </footer>
 
 
     </main>

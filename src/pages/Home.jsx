@@ -33,10 +33,8 @@ const EASE = [0.16, 1, 0.3, 1];
 // =====================================================
 // WHATSAPP
 // =====================================================
-// IMPORTANT:
-// Replace this with the actual UNBOUND WhatsApp number.
-// Example:
-// const WHATSAPP_NUMBER = "919876543210";
+// Use full international format without + or spaces.
+// Example India: 919392402961
 
 const WHATSAPP_NUMBER = "9392402961";
 
@@ -537,35 +535,24 @@ function Home() {
           bottom-6
           right-6
           z-[90]
-
           flex
           items-center
           justify-center
           gap-3
-
           rounded-full
-
           border
           border-white/20
-
           bg-black/40
-
           px-5
           py-3.5
-
           text-white
-
           shadow-[0_10px_40px_rgba(0,0,0,0.35)]
-
           backdrop-blur-xl
-
           transition-all
           duration-500
-
           hover:border-white/50
           hover:bg-white
           hover:text-black
-
           md:bottom-8
           md:right-8
         "
@@ -619,8 +606,6 @@ function Home() {
             overflow-hidden
           "
         >
-
-          {/* HERO IMAGE */}
 
           <motion.div
             style={{
@@ -722,9 +707,7 @@ function Home() {
           />
 
 
-          {/* =================================================
-              NAVBAR
-          ================================================= */}
+          {/* NAVBAR */}
 
           <nav
             className="
@@ -733,25 +716,17 @@ function Home() {
               right-[4.8%]
               top-5
               z-[50]
-
               flex
               h-[62px]
               items-center
               justify-between
-
               rounded-full
-
               border
               border-white/[0.18]
-
               bg-black/[0.22]
-
               px-7
-
               shadow-[0_8px_40px_rgba(0,0,0,0.18)]
-
               backdrop-blur-xl
-
               md:px-8
             "
           >
@@ -789,17 +764,14 @@ function Home() {
                   to: "/stories",
                   label: "Stories",
                 },
-
                 {
                   to: "/services",
                   label: "Services",
                 },
-
                 {
                   to: "/about",
                   label: "About",
                 },
-
                 {
                   to: "/contact",
                   label: "Contact",
@@ -819,7 +791,6 @@ function Home() {
                     transition-all
                     duration-300
                     hover:text-white
-
                     after:absolute
                     after:-bottom-1.5
                     after:left-0
@@ -872,9 +843,7 @@ function Home() {
           </nav>
 
 
-          {/* =================================================
-              HERO TITLE
-          ================================================= */}
+          {/* HERO TITLE */}
 
           <motion.div
             style={{
@@ -932,10 +901,6 @@ function Home() {
                 Weddings · Events · Stories
               </motion.p>
 
-
-              {/* =================================================
-                  UNBOUND
-              ================================================= */}
 
               <div
                 className="
@@ -1001,8 +966,6 @@ function Home() {
 
               </div>
 
-
-              {/* TAGLINE */}
 
               <motion.div
                 initial={{
@@ -1086,9 +1049,7 @@ function Home() {
           </motion.div>
 
 
-          {/* =================================================
-              HERO STORY
-          ================================================= */}
+          {/* HERO STORY */}
 
           <motion.div
             style={{
@@ -1480,6 +1441,191 @@ function Home() {
 
 
       {/* =====================================================
+          THE UNBOUND DIFFERENCE
+      ===================================================== */}
+
+      <section
+        className="
+          border-y
+          border-white/10
+          bg-[#050505]
+          px-6
+          py-28
+          md:px-10
+          md:py-40
+        "
+      >
+
+        <div className="mx-auto max-w-7xl">
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+            transition={{
+              duration: 1,
+              ease: EASE,
+            }}
+          >
+
+            <p
+              className="
+                mb-7
+                text-[8px]
+                uppercase
+                tracking-[0.6em]
+                text-white/30
+              "
+            >
+              The UNBOUND difference
+            </p>
+
+            <h2
+              className="
+                max-w-5xl
+                text-5xl
+                font-light
+                leading-[0.88]
+                tracking-[-0.065em]
+                md:text-7xl
+                lg:text-[6vw]
+              "
+            >
+              Not just what
+              <br />
+              you see.
+              <br />
+              <span className="text-white/30">
+                What you feel.
+              </span>
+            </h2>
+
+          </motion.div>
+
+
+          <div
+            className="
+              mt-20
+              grid
+              grid-cols-1
+              gap-px
+              overflow-hidden
+              border
+              border-white/10
+              bg-white/10
+              md:grid-cols-3
+            "
+          >
+
+            {[
+              {
+                number: "01",
+                title: "Emotion",
+                text:
+                  "We look for the expressions, reactions and connections that make a moment yours.",
+              },
+
+              {
+                number: "02",
+                title: "Atmosphere",
+                text:
+                  "The music, movement, light and energy are part of the story too.",
+              },
+
+              {
+                number: "03",
+                title: "Story",
+                text:
+                  "Every celebration has a beginning, middle and feeling worth remembering.",
+              },
+            ].map((item, index) => (
+
+              <motion.div
+                key={item.number}
+                initial={{
+                  opacity: 0,
+                  y: 40,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.2,
+                }}
+                transition={{
+                  delay: index * 0.1,
+                  duration: 0.8,
+                  ease: EASE,
+                }}
+                className="
+                  group
+                  bg-[#050505]
+                  p-8
+                  md:p-10
+                  lg:p-12
+                "
+              >
+
+                <span
+                  className="
+                    text-[8px]
+                    uppercase
+                    tracking-[0.45em]
+                    text-white/25
+                  "
+                >
+                  {item.number}
+                </span>
+
+                <h3
+                  className="
+                    mt-16
+                    text-3xl
+                    font-light
+                    tracking-[-0.04em]
+                    transition-transform
+                    duration-500
+                    group-hover:translate-x-2
+                    md:text-4xl
+                  "
+                >
+                  {item.title}
+                </h3>
+
+                <p
+                  className="
+                    mt-5
+                    text-sm
+                    leading-7
+                    text-white/35
+                  "
+                >
+                  {item.text}
+                </p>
+
+              </motion.div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
           ABOUT
       ===================================================== */}
 
@@ -1703,6 +1849,157 @@ function Home() {
 
 
       {/* =====================================================
+          CHOOSE YOUR STORY
+      ===================================================== */}
+
+      <section
+        className="
+          bg-black
+          px-6
+          py-28
+          md:px-10
+          md:py-40
+        "
+      >
+
+        <div className="mx-auto max-w-7xl">
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+            transition={{
+              duration: 1,
+              ease: EASE,
+            }}
+          >
+
+            <p
+              className="
+                mb-7
+                text-[8px]
+                uppercase
+                tracking-[0.6em]
+                text-white/30
+              "
+            >
+              Find your story
+            </p>
+
+            <h2
+              className="
+                text-5xl
+                font-light
+                leading-[0.9]
+                tracking-[-0.06em]
+                md:text-7xl
+                lg:text-[6vw]
+              "
+            >
+              What are you
+              <br />
+              celebrating?
+            </h2>
+
+          </motion.div>
+
+
+          <div
+            className="
+              mt-20
+              divide-y
+              divide-white/10
+              border-y
+              border-white/10
+            "
+          >
+
+            {services.map((service) => (
+
+              <Link
+                key={service.number}
+                to={service.link}
+                className="
+                  group
+                  flex
+                  items-center
+                  justify-between
+                  py-8
+                  md:py-10
+                "
+              >
+
+                <div
+                  className="
+                    flex
+                    items-center
+                    gap-6
+                    md:gap-10
+                  "
+                >
+
+                  <span
+                    className="
+                      text-[8px]
+                      uppercase
+                      tracking-[0.4em]
+                      text-white/20
+                    "
+                  >
+                    {service.number}
+                  </span>
+
+                  <h3
+                    className="
+                      text-3xl
+                      font-light
+                      tracking-[-0.04em]
+                      transition-transform
+                      duration-500
+                      group-hover:translate-x-2
+                      md:text-5xl
+                    "
+                  >
+                    {service.title}
+                  </h3>
+
+                </div>
+
+
+                <ArrowUpRight
+                  size={20}
+                  strokeWidth={1}
+                  className="
+                    text-white/25
+                    transition-all
+                    duration-500
+                    group-hover:-translate-y-1
+                    group-hover:translate-x-1
+                    group-hover:text-white
+                  "
+                />
+
+              </Link>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
           SERVICES
       ===================================================== */}
 
@@ -1803,8 +2100,6 @@ function Home() {
         </motion.div>
 
 
-        {/* SERVICE GRID */}
-
         <div
           className="
             mx-auto
@@ -1894,7 +2189,6 @@ function Home() {
                     group-hover:bg-black/35
                   "
                 />
-
 
                 <div
                   className="
@@ -2721,6 +3015,815 @@ function Home() {
 
 
       {/* =====================================================
+          CLIENT LOVE
+      ===================================================== */}
+
+      <section
+        className="
+          border-y
+          border-white/10
+          bg-[#050505]
+          px-6
+          py-28
+          md:px-10
+          md:py-40
+        "
+      >
+
+        <div className="mx-auto max-w-7xl">
+
+          {/* SECTION INTRO */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+            transition={{
+              duration: 1,
+              ease: EASE,
+            }}
+          >
+
+            <p
+              className="
+                mb-7
+                text-[8px]
+                uppercase
+                tracking-[0.6em]
+                text-white/30
+                md:text-xs
+              "
+            >
+              Client love
+            </p>
+
+            <div
+              className="
+                flex
+                flex-col
+                gap-8
+                md:flex-row
+                md:items-end
+                md:justify-between
+              "
+            >
+
+              <h2
+                className="
+                  max-w-5xl
+                  text-5xl
+                  font-light
+                  leading-[0.88]
+                  tracking-[-0.065em]
+                  md:text-7xl
+                  lg:text-[6vw]
+                "
+              >
+                What our clients
+                <br />
+                say.
+              </h2>
+
+              <p
+                className="
+                  max-w-sm
+                  text-sm
+                  leading-7
+                  text-white/35
+                  md:text-base
+                  md:leading-8
+                "
+              >
+                The best part of what we create
+                is knowing how it felt to the people
+                who trusted us with their moments.
+              </p>
+
+            </div>
+
+          </motion.div>
+
+
+          {/* TESTIMONIAL GRID */}
+
+          <div
+            className="
+              mt-20
+              grid
+              grid-cols-1
+              gap-px
+              overflow-hidden
+              border
+              border-white/10
+              bg-white/10
+              md:grid-cols-2
+            "
+          >
+
+            {[
+              {
+                quote:
+                  "UNBOUND made everything feel effortless. They understood the moments we wanted to remember and captured them so naturally.",
+                name: "Aarav & Priya",
+                type: "Wedding",
+              },
+
+              {
+                quote:
+                  "We never felt like we were posing for photographs. Everything felt genuine, relaxed and completely us.",
+                name: "Rohan & Ananya",
+                type: "Pre-Wedding",
+              },
+
+              {
+                quote:
+                  "From the first conversation to the final photographs, the entire experience felt personal and beautifully handled.",
+                name: "Meera",
+                type: "Celebration",
+              },
+
+              {
+                quote:
+                  "The team captured all the little things we missed on the day. Looking back at the photographs brought everything back.",
+                name: "Karthik & Sneha",
+                type: "Wedding",
+              },
+
+              {
+                quote:
+                  "What stood out most was the attention to emotion. They didn't just capture what happened — they captured how it felt.",
+                name: "Rahul & Ishita",
+                type: "Cinematic Story",
+              },
+
+              {
+                quote:
+                  "UNBOUND gave us photographs that feel timeless. Every image has a feeling behind it, and that's exactly what we wanted.",
+                name: "Arjun & Kavya",
+                type: "Wedding",
+              },
+
+            ].map((testimonial, index) => (
+
+              <motion.article
+                key={testimonial.name}
+                initial={{
+                  opacity: 0,
+                  y: 45,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.15,
+                }}
+                transition={{
+                  delay: index * 0.08,
+                  duration: 0.8,
+                  ease: EASE,
+                }}
+                className="
+                  group
+                  relative
+                  flex
+                  min-h-[330px]
+                  flex-col
+                  justify-between
+                  bg-[#050505]
+                  p-8
+                  md:p-10
+                  lg:p-12
+                "
+              >
+
+                {/* QUOTE MARK */}
+
+                <div
+                  className="
+                    text-5xl
+                    font-serif
+                    leading-none
+                    text-white/15
+                    transition-colors
+                    duration-500
+                    group-hover:text-white/30
+                  "
+                >
+                  “
+                </div>
+
+
+                {/* QUOTE */}
+
+                <p
+                  className="
+                    mt-8
+                    max-w-xl
+                    text-xl
+                    font-light
+                    leading-8
+                    tracking-[-0.02em]
+                    text-white/75
+                    md:text-2xl
+                    md:leading-9
+                  "
+                >
+                  {testimonial.quote}
+                </p>
+
+
+                {/* CLIENT */}
+
+                <div
+                  className="
+                    mt-12
+                    flex
+                    items-end
+                    justify-between
+                    gap-6
+                    border-t
+                    border-white/10
+                    pt-6
+                  "
+                >
+
+                  <div>
+
+                    <p
+                      className="
+                        text-sm
+                        font-medium
+                        tracking-[-0.01em]
+                        text-white/80
+                      "
+                    >
+                      {testimonial.name}
+                    </p>
+
+                    <p
+                      className="
+                        mt-2
+                        text-[8px]
+                        uppercase
+                        tracking-[0.4em]
+                        text-white/25
+                      "
+                    >
+                      {testimonial.type}
+                    </p>
+
+                  </div>
+
+
+                  <span
+                    className="
+                      text-[8px]
+                      uppercase
+                      tracking-[0.35em]
+                      text-white/20
+                      transition-colors
+                      duration-500
+                      group-hover:text-white/40
+                    "
+                  >
+                    Client story
+                  </span>
+
+                </div>
+
+              </motion.article>
+
+            ))}
+
+          </div>
+
+
+          {/* CLOSING LINE */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 30,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.3,
+            }}
+            transition={{
+              delay: 0.15,
+              duration: 0.8,
+              ease: EASE,
+            }}
+            className="
+              mt-14
+              flex
+              flex-col
+              gap-5
+              md:flex-row
+              md:items-center
+              md:justify-between
+            "
+          >
+
+            <p
+              className="
+                max-w-xl
+                text-sm
+                leading-7
+                text-white/30
+              "
+            >
+              Every story is different.
+              That's why every UNBOUND experience
+              begins with listening.
+            </p>
+
+
+            <Link
+              to="/contact"
+              className="
+                group
+                flex
+                w-fit
+                items-center
+                gap-4
+                text-[9px]
+                uppercase
+                tracking-[0.4em]
+                text-white/50
+                transition-colors
+                duration-300
+                hover:text-white
+              "
+            >
+
+              Tell us your story
+
+              <ArrowRight
+                size={15}
+                strokeWidth={1}
+                className="
+                  transition-transform
+                  duration-300
+                  group-hover:translate-x-1
+                "
+              />
+
+            </Link>
+
+          </motion.div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          CHECK YOUR DATE
+      ===================================================== */}
+
+      <section
+        className="
+          border-y
+          border-white/10
+          bg-[#080808]
+          px-6
+          py-24
+          md:px-10
+          md:py-32
+        "
+      >
+
+        <div
+          className="
+            mx-auto
+            flex
+            max-w-7xl
+            flex-col
+            gap-10
+            md:flex-row
+            md:items-center
+            md:justify-between
+          "
+        >
+
+          <div>
+
+            <p
+              className="
+                mb-5
+                text-[8px]
+                uppercase
+                tracking-[0.6em]
+                text-white/25
+              "
+            >
+              Planning something?
+            </p>
+
+            <h2
+              className="
+                text-4xl
+                font-light
+                leading-[0.95]
+                tracking-[-0.05em]
+                md:text-5xl
+              "
+            >
+              Let's see what
+              <br />
+              we can create together.
+            </h2>
+
+          </div>
+
+
+          <Link
+            to="/contact"
+            className="
+              group
+              flex
+              w-fit
+              items-center
+              gap-5
+              rounded-full
+              border
+              border-white/30
+              px-7
+              py-4
+              text-[9px]
+              uppercase
+              tracking-[0.4em]
+              text-white/70
+              transition-all
+              duration-500
+              hover:border-white
+              hover:bg-white
+              hover:text-black
+            "
+          >
+
+            CHECK YOUR DATE
+
+            <ArrowUpRight
+              size={16}
+              strokeWidth={1.2}
+              className="
+                transition-transform
+                duration-500
+                group-hover:translate-x-1
+                group-hover:-translate-y-1
+              "
+            />
+
+          </Link>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          FAQ
+      ===================================================== */}
+
+      <section
+        className="
+          bg-black
+          px-6
+          py-28
+          md:px-10
+          md:py-40
+        "
+      >
+
+        <div className="mx-auto max-w-7xl">
+
+          <div
+            className="
+              grid
+              grid-cols-1
+              gap-16
+              md:grid-cols-12
+            "
+          >
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 40,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
+              transition={{
+                duration: 0.9,
+                ease: EASE,
+              }}
+              className="md:col-span-4"
+            >
+
+              <p
+                className="
+                  text-[8px]
+                  uppercase
+                  tracking-[0.6em]
+                  text-white/30
+                "
+              >
+                Good to know
+              </p>
+
+              <h2
+                className="
+                  mt-8
+                  text-4xl
+                  font-light
+                  leading-[0.95]
+                  tracking-[-0.05em]
+                  md:text-5xl
+                "
+              >
+                Questions,
+                <br />
+                answered.
+              </h2>
+
+            </motion.div>
+
+
+            <div className="md:col-span-8">
+
+              {[
+                {
+                  question:
+                    "What types of events do you cover?",
+                  answer:
+                    "We work across weddings, pre-weddings, events and cinematic films.",
+                },
+
+                {
+                  question:
+                    "How do we start?",
+                  answer:
+                    "Send us your date, event type and a little about what you're planning. We'll take it from there.",
+                },
+
+                {
+                  question:
+                    "Can we customise our experience?",
+                  answer:
+                    "Absolutely. Every celebration has its own people, atmosphere and priorities.",
+                },
+
+                {
+                  question:
+                    "Do you offer photography and films?",
+                  answer:
+                    "Yes. Our work spans both photography and cinematic storytelling.",
+                },
+              ].map((faq, index) => (
+
+                <motion.details
+                  key={faq.question}
+                  initial={{
+                    opacity: 0,
+                    y: 25,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.15,
+                  }}
+                  transition={{
+                    delay: index * 0.06,
+                    duration: 0.7,
+                    ease: EASE,
+                  }}
+                  className="
+                    group
+                    border-t
+                    border-white/10
+                    py-7
+                    last:border-b
+                  "
+                >
+
+                  <summary
+                    className="
+                      flex
+                      cursor-pointer
+                      list-none
+                      items-center
+                      justify-between
+                      gap-6
+                      text-xl
+                      font-light
+                      tracking-[-0.03em]
+                      md:text-2xl
+                    "
+                  >
+
+                    <span>
+                      {faq.question}
+                    </span>
+
+                    <span
+                      className="
+                        flex
+                        h-8
+                        w-8
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-white/20
+                        text-white/50
+                        transition-transform
+                        duration-300
+                        group-open:rotate-45
+                      "
+                    >
+                      +
+                    </span>
+
+                  </summary>
+
+
+                  <p
+                    className="
+                      max-w-2xl
+                      pt-5
+                      text-sm
+                      leading-7
+                      text-white/35
+                    "
+                  >
+                    {faq.answer}
+                  </p>
+
+                </motion.details>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          SOCIAL DISCOVERY
+      ===================================================== */}
+
+      <section
+        className="
+          border-t
+          border-white/10
+          bg-[#050505]
+          px-6
+          py-24
+          text-center
+          md:px-10
+          md:py-32
+        "
+      >
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.3,
+          }}
+          transition={{
+            duration: 1,
+            ease: EASE,
+          }}
+        >
+
+          <p
+            className="
+              mb-6
+              text-[8px]
+              uppercase
+              tracking-[0.6em]
+              text-white/25
+            "
+          >
+            Follow the story
+          </p>
+
+
+          <h2
+            className="
+              text-4xl
+              font-light
+              tracking-[-0.05em]
+              md:text-6xl
+            "
+          >
+            More moments.
+            <br />
+            More stories.
+          </h2>
+
+
+          <p
+            className="
+              mx-auto
+              mt-7
+              max-w-md
+              text-sm
+              leading-7
+              text-white/35
+            "
+          >
+            Discover recent work, behind-the-scenes moments
+            and the world we're building around UNBOUND.
+          </p>
+
+
+          {/* Replace this URL with the actual UNBOUND Instagram */}
+
+          <a
+            href="https://instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              group
+              mt-10
+              inline-flex
+              items-center
+              gap-4
+              border-b
+              border-white/20
+              pb-3
+              text-[9px]
+              uppercase
+              tracking-[0.4em]
+              text-white/60
+              transition-all
+              duration-500
+              hover:border-white
+              hover:text-white
+            "
+          >
+
+            Instagram
+
+            <ArrowUpRight
+              size={15}
+              strokeWidth={1}
+              className="
+                transition-transform
+                duration-300
+                group-hover:translate-x-1
+                group-hover:-translate-y-1
+              "
+            />
+
+          </a>
+
+        </motion.div>
+
+      </section>
+
+
+      {/* =====================================================
           CONTACT / CHECK YOUR DATE
       ===================================================== */}
 
@@ -2895,10 +3998,6 @@ function Home() {
             </motion.h2>
 
 
-            {/* =================================================
-                FINAL CTA HIERARCHY
-            ================================================= */}
-
             <motion.div
               initial={{
                 opacity: 0,
@@ -2952,8 +4051,6 @@ function Home() {
                 "
               >
 
-                {/* PRIMARY CTA */}
-
                 <Link
                   to="/contact"
                   className="
@@ -2994,8 +4091,6 @@ function Home() {
 
                 </Link>
 
-
-                {/* SECONDARY CTA */}
 
                 <Link
                   to="/contact"
