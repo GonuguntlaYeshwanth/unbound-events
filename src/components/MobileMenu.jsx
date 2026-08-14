@@ -102,7 +102,7 @@ function MobileMenu({
   // WHATSAPP
   // =====================================================
 
-  const whatsappNumber = "YOUR_WHATSAPP_NUMBER";
+  const whatsappNumber = "9392402961";
 
   const whatsappMessage =
     "Hi UNBOUND, I'd like to enquire about an event.";
