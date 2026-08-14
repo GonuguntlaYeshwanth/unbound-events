@@ -6,6 +6,7 @@ import {
 import {
   X,
   ArrowUpRight,
+  MessageCircle,
 } from "lucide-react";
 
 import {
@@ -17,32 +18,57 @@ import {
 } from "react";
 
 
+// =====================================================
+// MOBILE MENU
+// =====================================================
+
 function MobileMenu({
   isOpen,
   onClose,
 }) {
 
   // =====================================================
-  // LOCK BODY SCROLL WHEN MENU IS OPEN
+  // LOCK BODY SCROLL + ESCAPE KEY
   // =====================================================
 
   useEffect(() => {
 
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    if (!isOpen) {
       document.body.style.overflow = "";
+      return;
     }
 
-    return () => {
-      document.body.style.overflow = "";
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event) => {
+
+      if (event.key === "Escape") {
+        onClose();
+      }
+
     };
 
-  }, [isOpen]);
+    window.addEventListener(
+      "keydown",
+      handleKeyDown
+    );
+
+    return () => {
+
+      document.body.style.overflow = "";
+
+      window.removeEventListener(
+        "keydown",
+        handleKeyDown
+      );
+
+    };
+
+  }, [isOpen, onClose]);
 
 
   // =====================================================
-  // NAVIGATION ITEMS
+  // NAVIGATION
   // =====================================================
 
   const navigation = [
@@ -72,6 +98,22 @@ function MobileMenu({
   ];
 
 
+  // =====================================================
+  // WHATSAPP
+  // =====================================================
+
+  const whatsappNumber = "YOUR_WHATSAPP_NUMBER";
+
+  const whatsappMessage =
+    "Hi UNBOUND, I'd like to enquire about an event.";
+
+
+  const whatsappUrl =
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
+
+
   return (
     <AnimatePresence>
 
@@ -80,18 +122,21 @@ function MobileMenu({
         <motion.div
           initial={{
             opacity: 0,
+            backdropFilter: "blur(0px)",
           }}
 
           animate={{
             opacity: 1,
+            backdropFilter: "blur(12px)",
           }}
 
           exit={{
             opacity: 0,
+            backdropFilter: "blur(0px)",
           }}
 
           transition={{
-            duration: 0.35,
+            duration: 0.45,
             ease: [0.16, 1, 0.3, 1],
           }}
 
@@ -99,6 +144,7 @@ function MobileMenu({
             fixed
             inset-0
             z-[100]
+            overflow-hidden
             bg-black
             text-white
             md:hidden
@@ -112,13 +158,13 @@ function MobileMenu({
 
           <motion.div
             initial={{
-              scale: 1.08,
+              scale: 1.12,
               opacity: 0,
             }}
 
             animate={{
               scale: 1,
-              opacity: 0.18,
+              opacity: 0.16,
             }}
 
             exit={{
@@ -127,7 +173,7 @@ function MobileMenu({
             }}
 
             transition={{
-              duration: 1,
+              duration: 1.2,
               ease: [0.16, 1, 0.3, 1],
             }}
 
@@ -141,6 +187,7 @@ function MobileMenu({
             <img
               src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=70"
               alt=""
+              aria-hidden="true"
               className="
                 h-full
                 w-full
@@ -152,7 +199,7 @@ function MobileMenu({
 
 
           {/* =================================================
-              DARK OVERLAY
+              CINEMATIC OVERLAY
           ================================================= */}
 
           <div
@@ -160,14 +207,10 @@ function MobileMenu({
               pointer-events-none
               absolute
               inset-0
-              bg-black/80
+              bg-black/82
             "
           />
 
-
-          {/* =================================================
-              GRADIENT
-          ================================================= */}
 
           <div
             className="
@@ -176,7 +219,7 @@ function MobileMenu({
               inset-0
               bg-gradient-to-b
               from-black
-              via-transparent
+              via-black/20
               to-black
             "
           />
@@ -223,7 +266,8 @@ function MobileMenu({
 
                 transition={{
                   delay: 0.15,
-                  duration: 0.5,
+                  duration: 0.55,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
 
                 className="
@@ -240,21 +284,26 @@ function MobileMenu({
                 initial={{
                   opacity: 0,
                   rotate: -45,
+                  scale: 0.8,
                 }}
 
                 animate={{
                   opacity: 1,
                   rotate: 0,
+                  scale: 1,
                 }}
 
                 transition={{
                   delay: 0.15,
-                  duration: 0.5,
+                  duration: 0.6,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
+
+                type="button"
 
                 onClick={onClose}
 
-                aria-label="Close menu"
+                aria-label="Close navigation menu"
 
                 className="
                   flex
@@ -265,7 +314,11 @@ function MobileMenu({
                   rounded-full
                   border
                   border-white/20
-                  transition-colors
+                  bg-white/[0.03]
+                  backdrop-blur-md
+                  transition-all
+                  duration-300
+                  hover:border-white/50
                   hover:bg-white
                   hover:text-black
                 "
@@ -286,6 +339,7 @@ function MobileMenu({
             ================================================= */}
 
             <nav
+              aria-label="Mobile navigation"
               className="
                 flex
                 flex-1
@@ -325,9 +379,9 @@ function MobileMenu({
                       transition={{
                         delay:
                           0.2 +
-                          index * 0.08,
+                          index * 0.09,
 
-                        duration: 0.65,
+                        duration: 0.7,
 
                         ease: [
                           0.16,
@@ -369,7 +423,7 @@ function MobileMenu({
                               text-[8px]
                               uppercase
                               tracking-[0.35em]
-                              text-white/30
+                              text-white/25
                             "
                           >
                             {item.number}
@@ -396,12 +450,12 @@ function MobileMenu({
                           size={20}
                           strokeWidth={1}
                           className="
-                            text-white/30
+                            text-white/25
                             transition-all
                             duration-500
-                            group-hover:text-white
                             group-hover:translate-x-1
                             group-hover:-translate-y-1
+                            group-hover:text-white
                           "
                         />
 
@@ -418,13 +472,13 @@ function MobileMenu({
 
 
             {/* =================================================
-                FOOTER
+                CHECK YOUR DATE
             ================================================= */}
 
             <motion.div
               initial={{
                 opacity: 0,
-                y: 20,
+                y: 25,
               }}
 
               animate={{
@@ -433,17 +487,178 @@ function MobileMenu({
               }}
 
               transition={{
-                delay: 0.6,
+                delay: 0.62,
+                duration: 0.75,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+
+              className="
+                border-t
+                border-white/10
+                pt-5
+              "
+            >
+
+              <Link
+                to="/contact"
+                onClick={onClose}
+
+                className="
+                  group
+                  flex
+                  items-center
+                  justify-between
+                  rounded-full
+                  border
+                  border-white/20
+                  bg-white/[0.04]
+                  px-5
+                  py-4
+                  backdrop-blur-md
+                  transition-all
+                  duration-500
+                  hover:border-white
+                  hover:bg-white
+                  hover:text-black
+                "
+              >
+
+                <div>
+
+                  <p
+                    className="
+                      text-[8px]
+                      uppercase
+                      tracking-[0.4em]
+                      text-white/40
+                      transition-colors
+                      group-hover:text-black/50
+                    "
+                  >
+                    Planning something?
+                  </p>
+
+
+                  <p
+                    className="
+                      mt-1
+                      text-sm
+                      font-medium
+                      uppercase
+                      tracking-[0.2em]
+                    "
+                  >
+                    Check your date
+                  </p>
+
+                </div>
+
+
+                <span
+                  className="
+                    flex
+                    h-10
+                    w-10
+                    items-center
+                    justify-center
+                    rounded-full
+                    border
+                    border-white/20
+                    transition-all
+                    duration-500
+                    group-hover:border-black/20
+                  "
+                >
+
+                  <ArrowUpRight
+                    size={16}
+                    strokeWidth={1.2}
+                  />
+
+                </span>
+
+              </Link>
+
+            </motion.div>
+
+
+            {/* =================================================
+                WHATSAPP
+            ================================================= */}
+
+            <motion.a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+
+              initial={{
+                opacity: 0,
+                y: 15,
+              }}
+
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+
+              transition={{
+                delay: 0.72,
+                duration: 0.65,
+              }}
+
+              className="
+                mt-3
+                flex
+                items-center
+                justify-center
+                gap-3
+                py-3
+                text-[8px]
+                uppercase
+                tracking-[0.35em]
+                text-white/40
+                transition-colors
+                duration-300
+                hover:text-white
+              "
+            >
+
+              <MessageCircle
+                size={14}
+                strokeWidth={1.2}
+              />
+
+              Chat with UNBOUND
+
+            </motion.a>
+
+
+            {/* =================================================
+                BRAND SIGNATURE
+            ================================================= */}
+
+            <motion.div
+              initial={{
+                opacity: 0,
+              }}
+
+              animate={{
+                opacity: 1,
+              }}
+
+              transition={{
+                delay: 0.82,
                 duration: 0.7,
               }}
 
               className="
+                mt-2
                 flex
                 items-end
                 justify-between
                 border-t
                 border-white/10
-                pt-6
+                pt-5
               "
             >
 
@@ -451,25 +666,37 @@ function MobileMenu({
 
                 <p
                   className="
-                    text-[8px]
+                    text-[7px]
                     uppercase
                     tracking-[0.4em]
-                    text-white/30
+                    text-white/20
                   "
                 >
-                  Weddings · Events
+                  CREATE.
                 </p>
 
                 <p
                   className="
-                    mt-2
-                    text-[8px]
+                    mt-1
+                    text-[7px]
                     uppercase
                     tracking-[0.4em]
-                    text-white/30
+                    text-white/20
                   "
                 >
-                  Stories · Films
+                  CAPTURE.
+                </p>
+
+                <p
+                  className="
+                    mt-1
+                    text-[7px]
+                    uppercase
+                    tracking-[0.4em]
+                    text-white/20
+                  "
+                >
+                  TELL.
                 </p>
 
               </div>
@@ -477,10 +704,11 @@ function MobileMenu({
 
               <span
                 className="
-                  text-[8px]
+                  text-right
+                  text-[7px]
                   uppercase
                   tracking-[0.35em]
-                  text-white/25
+                  text-white/20
                 "
               >
                 Moments

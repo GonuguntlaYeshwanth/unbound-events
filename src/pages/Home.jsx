@@ -11,6 +11,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Menu,
+  MessageCircle,
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
@@ -27,6 +28,20 @@ import MobileMenu from "../components/MobileMenu";
 // =====================================================
 
 const EASE = [0.16, 1, 0.3, 1];
+
+
+// =====================================================
+// WHATSAPP
+// =====================================================
+// IMPORTANT:
+// Replace this with the actual UNBOUND WhatsApp number.
+// Example:
+// const WHATSAPP_NUMBER = "919876543210";
+
+const WHATSAPP_NUMBER = "9392402961";
+
+const WHATSAPP_MESSAGE =
+  "Hi UNBOUND, I'd like to discuss an event with you.";
 
 
 // =====================================================
@@ -63,6 +78,7 @@ function SafeImage({
 // =====================================================
 
 function Home() {
+
   // ===================================================
   // REFS
   // ===================================================
@@ -73,17 +89,20 @@ function Home() {
   const soulRef = useRef(null);
   const contactRef = useRef(null);
 
+
   // ===================================================
   // ACCESSIBILITY
   // ===================================================
 
   const reduceMotion = useReducedMotion();
 
+
   // ===================================================
   // MOBILE MENU
   // ===================================================
 
   const [menuOpen, setMenuOpen] = useState(false);
+
 
   // ===================================================
   // PAGE SCROLL
@@ -97,6 +116,7 @@ function Home() {
     mass: 0.2,
   });
 
+
   // ===================================================
   // STORY SLIDER
   // ===================================================
@@ -108,7 +128,9 @@ function Home() {
     setDirection(1);
 
     setCurrentStory((current) =>
-      current === stories.length - 1 ? 0 : current + 1
+      current === stories.length - 1
+        ? 0
+        : current + 1
     );
   };
 
@@ -116,15 +138,20 @@ function Home() {
     setDirection(-1);
 
     setCurrentStory((current) =>
-      current === 0 ? stories.length - 1 : current - 1
+      current === 0
+        ? stories.length - 1
+        : current - 1
     );
   };
+
 
   // ===================================================
   // HERO SCROLL
   // ===================================================
 
-  const { scrollYProgress: heroProgressRaw } = useScroll({
+  const {
+    scrollYProgress: heroProgressRaw,
+  } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
@@ -138,25 +165,33 @@ function Home() {
   const heroImageScale = useTransform(
     heroProgress,
     [0, 1],
-    reduceMotion ? [1.05, 1.05] : [1.08, 1.22]
+    reduceMotion
+      ? [1.05, 1.05]
+      : [1.08, 1.22]
   );
 
   const heroImageY = useTransform(
     heroProgress,
     [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["0%", "12%"]
+    reduceMotion
+      ? ["0%", "0%"]
+      : ["0%", "12%"]
   );
 
   const heroTitleY = useTransform(
     heroProgress,
     [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["0%", "-32%"]
+    reduceMotion
+      ? ["0%", "0%"]
+      : ["0%", "-32%"]
   );
 
   const heroTitleScale = useTransform(
     heroProgress,
     [0, 1],
-    reduceMotion ? [1, 1] : [1, 0.84]
+    reduceMotion
+      ? [1, 1]
+      : [1, 0.84]
   );
 
   const heroTitleOpacity = useTransform(
@@ -174,20 +209,27 @@ function Home() {
   const heroStoryY = useTransform(
     heroProgress,
     [0.52, 1],
-    reduceMotion ? ["0px", "0px"] : ["90px", "0px"]
+    reduceMotion
+      ? ["0px", "0px"]
+      : ["90px", "0px"]
   );
 
   const heroStoryScale = useTransform(
     heroProgress,
     [0.52, 1],
-    reduceMotion ? [1, 1] : [0.93, 1]
+    reduceMotion
+      ? [1, 1]
+      : [0.93, 1]
   );
+
 
   // ===================================================
   // ABOUT PARALLAX
   // ===================================================
 
-  const { scrollYProgress: aboutProgress } = useScroll({
+  const {
+    scrollYProgress: aboutProgress,
+  } = useScroll({
     target: aboutRef,
     offset: ["start end", "end start"],
   });
@@ -195,13 +237,17 @@ function Home() {
   const aboutImageY = useTransform(
     aboutProgress,
     [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["-9%", "9%"]
+    reduceMotion
+      ? ["0%", "0%"]
+      : ["-9%", "9%"]
   );
 
   const aboutImageScale = useTransform(
     aboutProgress,
     [0, 1],
-    reduceMotion ? [1.02, 1.02] : [1.08, 1.19]
+    reduceMotion
+      ? [1.02, 1.02]
+      : [1.08, 1.19]
   );
 
   const aboutTextY = useTransform(
@@ -212,11 +258,14 @@ function Home() {
       : ["80px", "0px", "-60px"]
   );
 
+
   // ===================================================
   // SERVICES PARALLAX
   // ===================================================
 
-  const { scrollYProgress: servicesProgress } = useScroll({
+  const {
+    scrollYProgress: servicesProgress,
+  } = useScroll({
     target: servicesRef,
     offset: ["start end", "end start"],
   });
@@ -224,14 +273,19 @@ function Home() {
   const servicesImageY = useTransform(
     servicesProgress,
     [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["-5%", "5%"]
+    reduceMotion
+      ? ["0%", "0%"]
+      : ["-5%", "5%"]
   );
+
 
   // ===================================================
   // SOUL SECTION
   // ===================================================
 
-  const { scrollYProgress: soulProgress } = useScroll({
+  const {
+    scrollYProgress: soulProgress,
+  } = useScroll({
     target: soulRef,
     offset: ["start end", "end start"],
   });
@@ -239,20 +293,27 @@ function Home() {
   const soulImageY = useTransform(
     soulProgress,
     [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["-10%", "10%"]
+    reduceMotion
+      ? ["0%", "0%"]
+      : ["-10%", "10%"]
   );
 
   const soulImageScale = useTransform(
     soulProgress,
     [0, 1],
-    reduceMotion ? [1.02, 1.02] : [1.08, 1.18]
+    reduceMotion
+      ? [1.02, 1.02]
+      : [1.08, 1.18]
   );
+
 
   // ===================================================
   // CONTACT
   // ===================================================
 
-  const { scrollYProgress: contactProgress } = useScroll({
+  const {
+    scrollYProgress: contactProgress,
+  } = useScroll({
     target: contactRef,
     offset: ["start end", "end start"],
   });
@@ -260,14 +321,19 @@ function Home() {
   const contactImageY = useTransform(
     contactProgress,
     [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["-9%", "9%"]
+    reduceMotion
+      ? ["0%", "0%"]
+      : ["-9%", "9%"]
   );
 
   const contactImageScale = useTransform(
     contactProgress,
     [0, 1],
-    reduceMotion ? [1.02, 1.02] : [1.08, 1.18]
+    reduceMotion
+      ? [1.02, 1.02]
+      : [1.08, 1.18]
   );
+
 
   // ===================================================
   // SERVICES DATA
@@ -315,6 +381,42 @@ function Home() {
     },
   ];
 
+
+  // ===================================================
+  // PROCESS DATA
+  // ===================================================
+
+  const processSteps = [
+    {
+      number: "01",
+      title: "Discover",
+      description:
+        "We listen first. Your vision, your people, your story and what makes the moment yours.",
+    },
+
+    {
+      number: "02",
+      title: "Plan",
+      description:
+        "We shape the details, timeline and creative direction so everything feels effortless.",
+    },
+
+    {
+      number: "03",
+      title: "Create",
+      description:
+        "Our team captures the atmosphere, emotion and moments that happen naturally.",
+    },
+
+    {
+      number: "04",
+      title: "Remember",
+      description:
+        "Your memories become photographs, films and stories you can return to for years.",
+    },
+  ];
+
+
   // ===================================================
   // HERO WORD ANIMATION
   // ===================================================
@@ -343,14 +445,35 @@ function Home() {
       opacity: 1,
 
       transition: {
-        duration: 1.1,
+        duration: 1.25,
         ease: EASE,
       },
     },
   };
 
+
+  // ===================================================
+  // WHATSAPP ACTION
+  // ===================================================
+
+  const openWhatsApp = () => {
+
+    const url =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+        WHATSAPP_MESSAGE
+      )}`;
+
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+
   return (
     <main className="overflow-hidden bg-[#050505] text-white">
+
 
       {/* =====================================================
           GLOBAL SCROLL PROGRESS
@@ -384,6 +507,98 @@ function Home() {
 
 
       {/* =====================================================
+          FLOATING WHATSAPP
+      ===================================================== */}
+
+      <motion.button
+        type="button"
+        onClick={openWhatsApp}
+        initial={
+          reduceMotion
+            ? { opacity: 1 }
+            : {
+                opacity: 0,
+                y: 25,
+              }
+        }
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          delay: 2,
+          duration: 0.8,
+          ease: EASE,
+        }}
+        aria-label="Chat with UNBOUND on WhatsApp"
+        className="
+          group
+          fixed
+          bottom-6
+          right-6
+          z-[90]
+
+          flex
+          items-center
+          justify-center
+          gap-3
+
+          rounded-full
+
+          border
+          border-white/20
+
+          bg-black/40
+
+          px-5
+          py-3.5
+
+          text-white
+
+          shadow-[0_10px_40px_rgba(0,0,0,0.35)]
+
+          backdrop-blur-xl
+
+          transition-all
+          duration-500
+
+          hover:border-white/50
+          hover:bg-white
+          hover:text-black
+
+          md:bottom-8
+          md:right-8
+        "
+      >
+
+        <MessageCircle
+          size={19}
+          strokeWidth={1.4}
+          className="
+            shrink-0
+            transition-transform
+            duration-500
+            group-hover:scale-110
+          "
+        />
+
+        <span
+          className="
+            hidden
+            text-[9px]
+            font-medium
+            uppercase
+            tracking-[0.3em]
+            md:inline
+          "
+        >
+          Chat with UNBOUND
+        </span>
+
+      </motion.button>
+
+
+      {/* =====================================================
           HERO
       ===================================================== */}
 
@@ -405,9 +620,7 @@ function Home() {
           "
         >
 
-          {/* =================================================
-              HERO EVENT IMAGE
-          ================================================= */}
+          {/* HERO IMAGE */}
 
           <motion.div
             style={{
@@ -451,9 +664,7 @@ function Home() {
           </motion.div>
 
 
-          {/* =================================================
-              FILM GRAIN
-          ================================================= */}
+          {/* FILM GRAIN */}
 
           <div
             aria-hidden="true"
@@ -472,9 +683,7 @@ function Home() {
           />
 
 
-          {/* =================================================
-              CINEMATIC OVERLAYS
-          ================================================= */}
+          {/* CINEMATIC OVERLAYS */}
 
           <div
             className="
@@ -514,9 +723,7 @@ function Home() {
 
 
           {/* =================================================
-              FIXED-STYLE GLASS NAVBAR
-              No loading fade.
-              No cursor interaction.
+              NAVBAR
           ================================================= */}
 
           <nav
@@ -549,8 +756,6 @@ function Home() {
             "
           >
 
-            {/* LOGO */}
-
             <Link
               to="/"
               className="
@@ -569,8 +774,6 @@ function Home() {
               UNBOUND
             </Link>
 
-
-            {/* DESKTOP NAVIGATION */}
 
             <div
               className="
@@ -636,8 +839,6 @@ function Home() {
             </div>
 
 
-            {/* MOBILE MENU */}
-
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
@@ -688,11 +889,21 @@ function Home() {
               flex
               items-center
               justify-center
-              px-6
+              px-4
+              sm:px-6
+              md:px-8
             "
           >
 
-            <div className="w-full text-center">
+            <div
+              className="
+                flex
+                w-full
+                flex-col
+                items-center
+                text-center
+              "
+            >
 
               <motion.p
                 initial={{
@@ -709,11 +920,12 @@ function Home() {
                   ease: EASE,
                 }}
                 className="
-                  mb-8
+                  mb-7
                   text-[8px]
                   uppercase
                   tracking-[0.65em]
                   text-white/65
+                  md:mb-8
                   md:text-xs
                 "
               >
@@ -721,41 +933,73 @@ function Home() {
               </motion.p>
 
 
-              <motion.h1
-                variants={wordContainer}
-                initial="hidden"
-                animate="show"
+              {/* =================================================
+                  UNBOUND
+              ================================================= */}
+
+              <div
                 className="
-                  flex
-                  justify-center
+                  w-full
                   overflow-hidden
-                  text-[19vw]
-                  font-light
-                  leading-[0.72]
-                  tracking-[-0.08em]
-                  md:text-[15vw]
+                  px-2
+                  sm:px-4
+                  md:px-8
                 "
               >
 
-                {heroWords.map((word) => (
+                <motion.h1
+                  variants={wordContainer}
+                  initial="hidden"
+                  animate="show"
+                  className="
+                    mx-auto
+                    w-full
+                    max-w-[1450px]
+                    overflow-visible
+                    text-center
+                    text-[18vw]
+                    font-normal
+                    leading-[0.82]
+                    tracking-[-0.045em]
+                    text-white
+                    sm:text-[17vw]
+                    md:text-[14.5vw]
+                    lg:text-[13.5vw]
+                    xl:text-[13vw]
+                  "
+                  style={{
+                    fontFamily:
+                      '"Bodoni Moda", "Times New Roman", serif',
+                  }}
+                >
 
-                  <span
-                    key={word}
-                    className="overflow-hidden"
-                  >
+                  {heroWords.map((word) => (
 
-                    <motion.span
-                      variants={wordItem}
-                      className="inline-block"
+                    <span
+                      key={word}
+                      className="
+                        block
+                        overflow-visible
+                      "
                     >
-                      {word}
-                    </motion.span>
 
-                  </span>
+                      <motion.span
+                        variants={wordItem}
+                        className="
+                          inline-block
+                          whitespace-nowrap
+                        "
+                      >
+                        {word}
+                      </motion.span>
 
-                ))}
+                    </span>
 
-              </motion.h1>
+                  ))}
+
+                </motion.h1>
+
+              </div>
 
 
               {/* TAGLINE */}
@@ -774,11 +1018,12 @@ function Home() {
                   duration: 0.9,
                 }}
                 className="
-                  mt-10
+                  mt-9
                   flex
                   items-center
                   justify-center
                   gap-4
+                  md:mt-10
                 "
               >
 
@@ -877,7 +1122,6 @@ function Home() {
                 01 — The Beginning
               </p>
 
-
               <h2
                 className="
                   text-5xl
@@ -893,7 +1137,6 @@ function Home() {
                 <br />
                 deserves to be remembered.
               </h2>
-
 
               <p
                 className="
@@ -917,9 +1160,7 @@ function Home() {
           </motion.div>
 
 
-          {/* =================================================
-              SCROLL
-          ================================================= */}
+          {/* SCROLL */}
 
           <motion.div
             initial={{
@@ -1106,6 +1347,132 @@ function Home() {
             onNext={nextStory}
             onPrevious={previousStory}
           />
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          UNBOUND SIGNATURE
+      ===================================================== */}
+
+      <section
+        className="
+          relative
+          overflow-hidden
+          border-y
+          border-white/10
+          bg-[#050505]
+          px-6
+          py-32
+          md:px-10
+          md:py-44
+        "
+      >
+
+        <div
+          className="
+            absolute
+            left-1/2
+            top-1/2
+            h-[500px]
+            w-[500px]
+            -translate-x-1/2
+            -translate-y-1/2
+            rounded-full
+            bg-white/[0.025]
+            blur-[120px]
+          "
+        />
+
+        <div className="relative mx-auto max-w-7xl">
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 60,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+            transition={{
+              duration: 1,
+              ease: EASE,
+            }}
+            className="
+              grid
+              grid-cols-1
+              gap-16
+              md:grid-cols-12
+              md:items-end
+            "
+          >
+
+            <div className="md:col-span-8">
+
+              <p
+                className="
+                  mb-8
+                  text-[8px]
+                  uppercase
+                  tracking-[0.6em]
+                  text-white/30
+                  md:text-xs
+                "
+              >
+                The UNBOUND Signature
+              </p>
+
+              <h2
+                className="
+                  text-5xl
+                  font-light
+                  leading-[0.86]
+                  tracking-[-0.065em]
+                  sm:text-6xl
+                  md:text-8xl
+                  lg:text-[7vw]
+                "
+              >
+                CREATE.
+                <br />
+                CAPTURE.
+                <br />
+                <span className="text-white/30">
+                  TELL.
+                </span>
+              </h2>
+
+            </div>
+
+
+            <div className="md:col-span-4">
+
+              <p
+                className="
+                  max-w-sm
+                  text-sm
+                  leading-7
+                  text-white/45
+                  md:text-base
+                  md:leading-8
+                "
+              >
+                From the first idea to the final
+                frame, we create experiences,
+                capture the emotion and tell
+                stories that live beyond the day.
+              </p>
+
+            </div>
+
+          </motion.div>
 
         </div>
 
@@ -1541,8 +1908,6 @@ function Home() {
                 />
 
 
-                {/* TOP META */}
-
                 <div
                   className="
                     absolute
@@ -1596,8 +1961,6 @@ function Home() {
                 </div>
 
 
-                {/* CONTENT */}
-
                 <div
                   className="
                     absolute
@@ -1643,8 +2006,6 @@ function Home() {
         </div>
 
 
-        {/* ALL SERVICES */}
-
         <div
           className="
             mx-auto
@@ -1683,6 +2044,197 @@ function Home() {
             />
 
           </Link>
+
+        </div>
+
+      </section>
+
+
+      {/* =====================================================
+          OUR PROCESS
+      ===================================================== */}
+
+      <section
+        className="
+          border-y
+          border-white/10
+          bg-[#050505]
+          px-6
+          py-32
+          md:px-10
+          md:py-44
+        "
+      >
+
+        <div className="mx-auto max-w-7xl">
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 50,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.2,
+            }}
+            transition={{
+              duration: 1,
+              ease: EASE,
+            }}
+            className="
+              mb-20
+              md:mb-28
+            "
+          >
+
+            <p
+              className="
+                mb-7
+                text-[8px]
+                uppercase
+                tracking-[0.6em]
+                text-white/30
+                md:text-xs
+              "
+            >
+              How we work
+            </p>
+
+            <h2
+              className="
+                max-w-5xl
+                text-5xl
+                font-light
+                leading-[0.88]
+                tracking-[-0.065em]
+                md:text-7xl
+                lg:text-[6vw]
+              "
+            >
+              From first idea
+              <br />
+              to lasting memory.
+            </h2>
+
+          </motion.div>
+
+
+          <div
+            className="
+              grid
+              grid-cols-1
+              border-t
+              border-white/10
+              md:grid-cols-2
+            "
+          >
+
+            {processSteps.map((step, index) => (
+
+              <motion.div
+                key={step.number}
+                initial={{
+                  opacity: 0,
+                  y: 45,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.15,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.08,
+                  ease: EASE,
+                }}
+                className="
+                  group
+                  border-b
+                  border-white/10
+                  py-10
+                  md:border-r
+                  md:px-10
+                  md:py-14
+                  md:[&:nth-child(2n)]:border-r-0
+                "
+              >
+
+                <div
+                  className="
+                    flex
+                    items-start
+                    justify-between
+                    gap-8
+                  "
+                >
+
+                  <span
+                    className="
+                      text-[9px]
+                      uppercase
+                      tracking-[0.4em]
+                      text-white/30
+                    "
+                  >
+                    {step.number}
+                  </span>
+
+
+                  <ArrowUpRight
+                    size={18}
+                    strokeWidth={1}
+                    className="
+                      text-white/20
+                      transition-all
+                      duration-500
+                      group-hover:-translate-y-1
+                      group-hover:translate-x-1
+                      group-hover:text-white
+                    "
+                  />
+
+                </div>
+
+
+                <h3
+                  className="
+                    mt-12
+                    text-4xl
+                    font-light
+                    tracking-[-0.05em]
+                    md:text-5xl
+                  "
+                >
+                  {step.title}
+                </h3>
+
+
+                <p
+                  className="
+                    mt-5
+                    max-w-md
+                    text-sm
+                    leading-7
+                    text-white/40
+                    md:text-base
+                    md:leading-8
+                  "
+                >
+                  {step.description}
+                </p>
+
+              </motion.div>
+
+            ))}
+
+          </div>
 
         </div>
 
@@ -1849,27 +2401,39 @@ function Home() {
 
                 <span>Weddings</span>
 
-                <span className="text-white/25">✦</span>
+                <span className="text-white/25">
+                  ✦
+                </span>
 
                 <span>Events</span>
 
-                <span className="text-white/25">✦</span>
+                <span className="text-white/25">
+                  ✦
+                </span>
 
                 <span>Pre-Weddings</span>
 
-                <span className="text-white/25">✦</span>
+                <span className="text-white/25">
+                  ✦
+                </span>
 
                 <span>Cinematic Films</span>
 
-                <span className="text-white/25">✦</span>
+                <span className="text-white/25">
+                  ✦
+                </span>
 
                 <span>Stories</span>
 
-                <span className="text-white/25">✦</span>
+                <span className="text-white/25">
+                  ✦
+                </span>
 
                 <span>UNBOUND</span>
 
-                <span className="text-white/25">✦</span>
+                <span className="text-white/25">
+                  ✦
+                </span>
 
               </div>
 
@@ -2157,14 +2721,14 @@ function Home() {
 
 
       {/* =====================================================
-          CONTACT
+          CONTACT / CHECK YOUR DATE
       ===================================================== */}
 
       <section
         ref={contactRef}
         className="
           relative
-          min-h-[850px]
+          min-h-[900px]
           overflow-hidden
           border-t
           border-white/10
@@ -2236,7 +2800,7 @@ function Home() {
             z-10
             mx-auto
             flex
-            min-h-[850px]
+            min-h-[900px]
             max-w-7xl
             items-center
             px-6
@@ -2331,6 +2895,10 @@ function Home() {
             </motion.h2>
 
 
+            {/* =================================================
+                FINAL CTA HIERARCHY
+            ================================================= */}
+
             <motion.div
               initial={{
                 opacity: 0,
@@ -2375,46 +2943,97 @@ function Home() {
               </p>
 
 
-              <Link
-                to="/contact"
+              <div
                 className="
-                  group
                   flex
-                  w-fit
-                  items-center
-                  gap-5
-                  rounded-full
-                  border
-                  border-white/25
-                  px-7
-                  py-4
-                  text-[9px]
-                  uppercase
-                  tracking-[0.4em]
-                  text-white/75
-                  backdrop-blur-md
-                  transition-all
-                  duration-500
-                  hover:border-white
-                  hover:bg-white
-                  hover:text-black
+                  flex-col
+                  items-start
+                  gap-4
                 "
               >
 
-                Start a conversation
+                {/* PRIMARY CTA */}
 
-                <ArrowUpRight
-                  size={16}
-                  strokeWidth={1.2}
+                <Link
+                  to="/contact"
                   className="
-                    transition-transform
+                    group
+                    flex
+                    w-fit
+                    items-center
+                    gap-5
+                    rounded-full
+                    border
+                    border-white
+                    bg-white
+                    px-7
+                    py-4
+                    text-[9px]
+                    uppercase
+                    tracking-[0.4em]
+                    text-black
+                    transition-all
                     duration-500
-                    group-hover:translate-x-1
-                    group-hover:-translate-y-1
+                    hover:bg-transparent
+                    hover:text-white
                   "
-                />
+                >
 
-              </Link>
+                  CHECK YOUR DATE
+
+                  <ArrowUpRight
+                    size={16}
+                    strokeWidth={1.2}
+                    className="
+                      transition-transform
+                      duration-500
+                      group-hover:translate-x-1
+                      group-hover:-translate-y-1
+                    "
+                  />
+
+                </Link>
+
+
+                {/* SECONDARY CTA */}
+
+                <Link
+                  to="/contact"
+                  className="
+                    group
+                    flex
+                    w-fit
+                    items-center
+                    gap-4
+                    border-b
+                    border-white/30
+                    pb-2
+                    text-[9px]
+                    uppercase
+                    tracking-[0.4em]
+                    text-white/60
+                    transition-all
+                    duration-500
+                    hover:border-white
+                    hover:text-white
+                  "
+                >
+
+                  Start a conversation
+
+                  <ArrowRight
+                    size={15}
+                    strokeWidth={1}
+                    className="
+                      transition-transform
+                      duration-300
+                      group-hover:translate-x-1
+                    "
+                  />
+
+                </Link>
+
+              </div>
 
             </motion.div>
 
@@ -2564,5 +3183,6 @@ function Home() {
     </main>
   );
 }
+
 
 export default Home;
