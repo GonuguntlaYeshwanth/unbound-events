@@ -4,6 +4,7 @@ import {
   useTransform,
   useSpring,
   useReducedMotion,
+  useMotionValueEvent,
 } from "motion/react";
 
 import {
@@ -22,25 +23,20 @@ import stories from "../data/stories";
 import StoryCard from "../components/StoryCard";
 import MobileMenu from "../components/MobileMenu";
 
-
 // =====================================================
 // MOTION
 // =====================================================
 
 const EASE = [0.16, 1, 0.3, 1];
 
-
 // =====================================================
 // WHATSAPP
 // =====================================================
-// Use full international format without + or spaces.
-// Example India: 919392402961
 
 const WHATSAPP_NUMBER = "9392402961";
 
 const WHATSAPP_MESSAGE =
   "Hi UNBOUND, I'd like to discuss an event with you.";
-
 
 // =====================================================
 // SAFE IMAGE
@@ -70,13 +66,11 @@ function SafeImage({
   );
 }
 
-
 // =====================================================
 // HOME
 // =====================================================
 
 function Home() {
-
   // ===================================================
   // REFS
   // ===================================================
@@ -87,13 +81,11 @@ function Home() {
   const soulRef = useRef(null);
   const contactRef = useRef(null);
 
-
   // ===================================================
   // ACCESSIBILITY
   // ===================================================
 
   const reduceMotion = useReducedMotion();
-
 
   // ===================================================
   // MOBILE MENU
@@ -101,19 +93,90 @@ function Home() {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // ===================================================
+  // WHATSAPP STATE
+  // ===================================================
+
+  const [whatsappCollapsed, setWhatsappCollapsed] =
+    useState(false);
+
+  const [whatsappHovered, setWhatsappHovered] =
+    useState(false);
 
   // ===================================================
   // PAGE SCROLL
   // ===================================================
 
-  const { scrollYProgress: pageProgress } = useScroll();
+  const {
+    scrollYProgress: pageProgress,
+  } = useScroll();
+
+  // ===================================================
+  // WHATSAPP SCROLL BEHAVIOUR
+  //
+  // At the top:
+  //     Chat with UNBOUND
+  //
+  // Scroll down:
+  //     Icon only
+  //
+  // Scroll back up:
+  //     Chat with UNBOUND
+  //
+  // Hovering the collapsed button:
+  //     Temporarily expands
+  // ===================================================
+
+  useMotionValueEvent(
+    pageProgress,
+    "change",
+    (latest) => {
+      const previous =
+        pageProgress.getPrevious();
+
+      if (previous === undefined) {
+        return;
+      }
+
+      // -----------------------------------------------
+      // Always expanded at the very top
+      // -----------------------------------------------
+
+      if (latest <= 0.015) {
+        setWhatsappCollapsed(false);
+        return;
+      }
+
+      // -----------------------------------------------
+      // Scrolling DOWN
+      // -----------------------------------------------
+
+      if (latest > previous) {
+        setWhatsappCollapsed(true);
+      }
+
+      // -----------------------------------------------
+      // Scrolling UP
+      // -----------------------------------------------
+
+      if (latest < previous) {
+        setWhatsappCollapsed(false);
+      }
+    }
+  );
+
+  const whatsappIsExpanded =
+    !whatsappCollapsed || whatsappHovered;
+
+  // ===================================================
+  // PAGE PROGRESS
+  // ===================================================
 
   const progressBar = useSpring(pageProgress, {
     stiffness: 120,
     damping: 24,
     mass: 0.2,
   });
-
 
   // ===================================================
   // STORY SLIDER
@@ -142,7 +205,6 @@ function Home() {
     );
   };
 
-
   // ===================================================
   // HERO SCROLL
   // ===================================================
@@ -154,11 +216,14 @@ function Home() {
     offset: ["start start", "end start"],
   });
 
-  const heroProgress = useSpring(heroProgressRaw, {
-    stiffness: 90,
-    damping: 26,
-    mass: 0.3,
-  });
+  const heroProgress = useSpring(
+    heroProgressRaw,
+    {
+      stiffness: 90,
+      damping: 26,
+      mass: 0.3,
+    }
+  );
 
   const heroImageScale = useTransform(
     heroProgress,
@@ -220,7 +285,6 @@ function Home() {
       : [0.93, 1]
   );
 
-
   // ===================================================
   // ABOUT PARALLAX
   // ===================================================
@@ -256,7 +320,6 @@ function Home() {
       : ["80px", "0px", "-60px"]
   );
 
-
   // ===================================================
   // SERVICES PARALLAX
   // ===================================================
@@ -275,7 +338,6 @@ function Home() {
       ? ["0%", "0%"]
       : ["-5%", "5%"]
   );
-
 
   // ===================================================
   // SOUL SECTION
@@ -304,7 +366,6 @@ function Home() {
       : [1.08, 1.18]
   );
 
-
   // ===================================================
   // CONTACT
   // ===================================================
@@ -331,7 +392,6 @@ function Home() {
       ? [1.02, 1.02]
       : [1.08, 1.18]
   );
-
 
   // ===================================================
   // SERVICES DATA
@@ -379,7 +439,6 @@ function Home() {
     },
   ];
 
-
   // ===================================================
   // PROCESS DATA
   // ===================================================
@@ -413,7 +472,6 @@ function Home() {
         "Your memories become photographs, films and stories you can return to for years.",
     },
   ];
-
 
   // ===================================================
   // HERO WORD ANIMATION
@@ -449,13 +507,11 @@ function Home() {
     },
   };
 
-
   // ===================================================
   // WHATSAPP ACTION
   // ===================================================
 
   const openWhatsApp = () => {
-
     const url =
       `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
         WHATSAPP_MESSAGE
@@ -468,11 +524,18 @@ function Home() {
     );
   };
 
+  // ===================================================
+  // RETURN
+  // ===================================================
 
   return (
-    <main className="overflow-hidden bg-[#050505] text-white">
-
-
+    <main
+      className="
+        overflow-hidden
+        bg-[#050505]
+        text-white
+      "
+    >
       {/* =====================================================
           GLOBAL SCROLL PROGRESS
       ===================================================== */}
@@ -493,7 +556,6 @@ function Home() {
         "
       />
 
-
       {/* =====================================================
           MOBILE MENU
       ===================================================== */}
@@ -503,17 +565,23 @@ function Home() {
         onClose={() => setMenuOpen(false)}
       />
 
-
       {/* =====================================================
           FLOATING WHATSAPP
+          
+          Expanded:
+          240px = icon + text
+
+          Collapsed:
+          48px = icon only
       ===================================================== */}
 
-      <motion.button
-        type="button"
-        onClick={openWhatsApp}
+      <motion.div
         initial={
           reduceMotion
-            ? { opacity: 1 }
+            ? {
+                opacity: 1,
+                y: 0,
+              }
             : {
                 opacity: 0,
                 y: 25,
@@ -528,62 +596,151 @@ function Home() {
           duration: 0.8,
           ease: EASE,
         }}
-        aria-label="Chat with UNBOUND on WhatsApp"
         className="
-          group
           fixed
-          bottom-6
-          right-6
+          bottom-5
+          right-4
           z-[90]
-          flex
-          items-center
-          justify-center
-          gap-3
-          rounded-full
-          border
-          border-white/20
-          bg-black/40
-          px-5
-          py-3.5
-          text-white
-          shadow-[0_10px_40px_rgba(0,0,0,0.35)]
-          backdrop-blur-xl
-          transition-all
-          duration-500
-          hover:border-white/50
-          hover:bg-white
-          hover:text-black
+          sm:bottom-6
+          sm:right-6
           md:bottom-8
           md:right-8
         "
       >
+        <motion.button
+          type="button"
+          onClick={openWhatsApp}
+          onHoverStart={() => {
+            setWhatsappHovered(true);
+          }}
+          onHoverEnd={() => {
+            setWhatsappHovered(false);
+          }}
+          onFocus={() => {
+            setWhatsappHovered(true);
+          }}
+          onBlur={() => {
+            setWhatsappHovered(false);
+          }}
+          whileTap={
+            reduceMotion
+              ? {}
+              : {
+                  scale: 0.94,
+                }
+          }
+          animate={{
+            width: whatsappIsExpanded
+              ? 240
+              : 48,
+          }}
+          transition={{
+            width: {
+              duration: reduceMotion
+                ? 0
+                : 0.45,
+              ease: EASE,
+            },
 
-        <MessageCircle
-          size={19}
-          strokeWidth={1.4}
+            scale: {
+              duration: 0.2,
+            },
+          }}
+          aria-label="Chat with UNBOUND on WhatsApp"
           className="
+            group
+            relative
+            flex
+            h-12
             shrink-0
-            transition-transform
+            items-center
+            overflow-hidden
+            rounded-full
+            border
+            border-white/25
+            bg-black/55
+            p-0
+            text-white
+            shadow-[0_12px_40px_rgba(0,0,0,0.4)]
+            backdrop-blur-xl
+            transition-colors
             duration-500
-            group-hover:scale-110
-          "
-        />
-
-        <span
-          className="
-            hidden
-            text-[9px]
-            font-medium
-            uppercase
-            tracking-[0.3em]
-            md:inline
+            hover:border-white/50
+            hover:bg-white
+            hover:text-black
           "
         >
-          Chat with UNBOUND
-        </span>
+          {/* =================================================
+              ICON
+          ================================================= */}
 
-      </motion.button>
+          <span
+            className="
+              absolute
+              left-0
+              top-0
+              z-10
+              flex
+              h-12
+              w-12
+              shrink-0
+              items-center
+              justify-center
+            "
+          >
+            <MessageCircle
+              size={20}
+              strokeWidth={1.35}
+              className="
+                transition-transform
+                duration-500
+                group-hover:scale-110
+              "
+            />
+          </span>
 
+          {/* =================================================
+              TEXT
+          ================================================= */}
+
+          <motion.span
+            animate={{
+              opacity: whatsappIsExpanded
+                ? 1
+                : 0,
+
+              x: whatsappIsExpanded
+                ? 0
+                : -10,
+            }}
+            transition={{
+              duration: reduceMotion
+                ? 0
+                : 0.25,
+
+              ease: EASE,
+            }}
+            className="
+              absolute
+              left-12
+              right-0
+              top-0
+              flex
+              h-12
+              items-center
+              whitespace-nowrap
+              pl-4
+              pr-4
+              text-[9px]
+              font-medium
+              uppercase
+              tracking-[0.22em]
+            "
+          >
+            CHAT WITH UNBOUND
+          </motion.span>
+        </motion.button>
+      </motion.div>
 
       {/* =====================================================
           HERO
@@ -597,7 +754,6 @@ function Home() {
           bg-black
         "
       >
-
         <div
           className="
             sticky
@@ -606,7 +762,6 @@ function Home() {
             overflow-hidden
           "
         >
-
           <motion.div
             style={{
               scale: heroImageScale,
@@ -631,7 +786,6 @@ function Home() {
               will-change-transform
             "
           >
-
             <SafeImage
               src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=2400&q=90"
               fallback="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2400&q=90"
@@ -645,9 +799,7 @@ function Home() {
                 object-cover
               "
             />
-
           </motion.div>
-
 
           {/* FILM GRAIN */}
 
@@ -666,7 +818,6 @@ function Home() {
                 "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
             }}
           />
-
 
           {/* CINEMATIC OVERLAYS */}
 
@@ -706,7 +857,6 @@ function Home() {
             "
           />
 
-
           {/* NAVBAR */}
 
           <nav
@@ -730,7 +880,6 @@ function Home() {
               md:px-8
             "
           >
-
             <Link
               to="/"
               className="
@@ -749,7 +898,6 @@ function Home() {
               UNBOUND
             </Link>
 
-
             <div
               className="
                 hidden
@@ -758,26 +906,27 @@ function Home() {
                 md:flex
               "
             >
-
               {[
                 {
                   to: "/stories",
                   label: "Stories",
                 },
+
                 {
                   to: "/services",
                   label: "Services",
                 },
+
                 {
                   to: "/about",
                   label: "About",
                 },
+
                 {
                   to: "/contact",
                   label: "Contact",
                 },
               ].map((item) => (
-
                 <Link
                   key={item.to}
                   to={item.to}
@@ -804,11 +953,8 @@ function Home() {
                 >
                   {item.label}
                 </Link>
-
               ))}
-
             </div>
-
 
             <button
               type="button"
@@ -832,16 +978,12 @@ function Home() {
                 md:hidden
               "
             >
-
               <Menu
                 size={17}
                 strokeWidth={1.3}
               />
-
             </button>
-
           </nav>
-
 
           {/* HERO TITLE */}
 
@@ -863,7 +1005,6 @@ function Home() {
               md:px-8
             "
           >
-
             <div
               className="
                 flex
@@ -873,7 +1014,6 @@ function Home() {
                 text-center
               "
             >
-
               <motion.p
                 initial={{
                   opacity: 0,
@@ -901,7 +1041,6 @@ function Home() {
                 Weddings · Events · Stories
               </motion.p>
 
-
               <div
                 className="
                   w-full
@@ -911,7 +1050,6 @@ function Home() {
                   md:px-8
                 "
               >
-
                 <motion.h1
                   variants={wordContainer}
                   initial="hidden"
@@ -937,9 +1075,7 @@ function Home() {
                       '"Bodoni Moda", "Times New Roman", serif',
                   }}
                 >
-
                   {heroWords.map((word) => (
-
                     <span
                       key={word}
                       className="
@@ -947,7 +1083,6 @@ function Home() {
                         overflow-visible
                       "
                     >
-
                       <motion.span
                         variants={wordItem}
                         className="
@@ -957,15 +1092,10 @@ function Home() {
                       >
                         {word}
                       </motion.span>
-
                     </span>
-
                   ))}
-
                 </motion.h1>
-
               </div>
-
 
               <motion.div
                 initial={{
@@ -989,7 +1119,6 @@ function Home() {
                   md:mt-10
                 "
               >
-
                 <motion.span
                   initial={{
                     scaleX: 0,
@@ -1041,13 +1170,9 @@ function Home() {
                     bg-white/30
                   "
                 />
-
               </motion.div>
-
             </div>
-
           </motion.div>
-
 
           {/* HERO STORY */}
 
@@ -1067,9 +1192,7 @@ function Home() {
               px-6
             "
           >
-
             <div className="max-w-5xl text-center">
-
               <p
                 className="
                   mb-8
@@ -1115,11 +1238,8 @@ function Home() {
                 photographs, films and stories
                 that stay with you.
               </p>
-
             </div>
-
           </motion.div>
-
 
           {/* SCROLL */}
 
@@ -1146,7 +1266,6 @@ function Home() {
               gap-3
             "
           >
-
             <span
               className="
                 text-[8px]
@@ -1172,21 +1291,15 @@ function Home() {
                 ease: "easeInOut",
               }}
             >
-
               <ArrowDown
                 size={15}
                 strokeWidth={1}
                 className="text-white/60"
               />
-
             </motion.div>
-
           </motion.div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           FEATURED STORIES
@@ -1202,9 +1315,7 @@ function Home() {
           md:py-48
         "
       >
-
         <div className="mx-auto max-w-7xl">
-
           <motion.div
             initial={{
               opacity: 0,
@@ -1233,9 +1344,7 @@ function Home() {
               md:justify-between
             "
           >
-
             <div>
-
               <p
                 className="
                   mb-7
@@ -1262,9 +1371,7 @@ function Home() {
                 <br />
                 remembering.
               </h2>
-
             </div>
-
 
             <Link
               to="/stories"
@@ -1282,7 +1389,6 @@ function Home() {
                 hover:text-white
               "
             >
-
               View all stories
 
               <ArrowRight
@@ -1294,11 +1400,8 @@ function Home() {
                   group-hover:translate-x-1
                 "
               />
-
             </Link>
-
           </motion.div>
-
 
           <StoryCard
             story={stories[currentStory]}
@@ -1308,11 +1411,8 @@ function Home() {
             onNext={nextStory}
             onPrevious={previousStory}
           />
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           UNBOUND SIGNATURE
@@ -1331,7 +1431,6 @@ function Home() {
           md:py-44
         "
       >
-
         <div
           className="
             absolute
@@ -1348,7 +1447,6 @@ function Home() {
         />
 
         <div className="relative mx-auto max-w-7xl">
-
           <motion.div
             initial={{
               opacity: 0,
@@ -1374,9 +1472,7 @@ function Home() {
               md:items-end
             "
           >
-
             <div className="md:col-span-8">
-
               <p
                 className="
                   mb-8
@@ -1409,12 +1505,9 @@ function Home() {
                   TELL.
                 </span>
               </h2>
-
             </div>
 
-
             <div className="md:col-span-4">
-
               <p
                 className="
                   max-w-sm
@@ -1430,15 +1523,10 @@ function Home() {
                 capture the emotion and tell
                 stories that live beyond the day.
               </p>
-
             </div>
-
           </motion.div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           THE UNBOUND DIFFERENCE
@@ -1455,9 +1543,7 @@ function Home() {
           md:py-40
         "
       >
-
         <div className="mx-auto max-w-7xl">
-
           <motion.div
             initial={{
               opacity: 0,
@@ -1476,7 +1562,6 @@ function Home() {
               ease: EASE,
             }}
           >
-
             <p
               className="
                 mb-7
@@ -1508,9 +1593,7 @@ function Home() {
                 What you feel.
               </span>
             </h2>
-
           </motion.div>
-
 
           <div
             className="
@@ -1525,7 +1608,6 @@ function Home() {
               md:grid-cols-3
             "
           >
-
             {[
               {
                 number: "01",
@@ -1548,7 +1630,6 @@ function Home() {
                   "Every celebration has a beginning, middle and feeling worth remembering.",
               },
             ].map((item, index) => (
-
               <motion.div
                 key={item.number}
                 initial={{
@@ -1576,7 +1657,6 @@ function Home() {
                   lg:p-12
                 "
               >
-
                 <span
                   className="
                     text-[8px]
@@ -1613,17 +1693,11 @@ function Home() {
                 >
                   {item.text}
                 </p>
-
               </motion.div>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           ABOUT
@@ -1639,7 +1713,6 @@ function Home() {
           border-white/10
         "
       >
-
         <motion.div
           style={{
             y: aboutImageY,
@@ -1651,7 +1724,6 @@ function Home() {
             transform-gpu
           "
         >
-
           <SafeImage
             src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2400&q=90"
             fallback="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2400&q=90"
@@ -1664,9 +1736,7 @@ function Home() {
               object-cover
             "
           />
-
         </motion.div>
-
 
         <div className="absolute inset-0 bg-black/55" />
 
@@ -1692,7 +1762,6 @@ function Home() {
           "
         />
 
-
         <motion.div
           style={{
             y: aboutTextY,
@@ -1710,9 +1779,7 @@ function Home() {
             md:px-10
           "
         >
-
           <div className="max-w-5xl">
-
             <motion.p
               initial={{
                 opacity: 0,
@@ -1741,7 +1808,6 @@ function Home() {
               02 — About UNBOUND
             </motion.p>
 
-
             <motion.h2
               initial={{
                 opacity: 0,
@@ -1769,7 +1835,6 @@ function Home() {
             >
               UNBOUND
             </motion.h2>
-
 
             <motion.p
               initial={{
@@ -1803,7 +1868,6 @@ function Home() {
               and unforgettable experiences.
             </motion.p>
 
-
             <Link
               to="/about"
               className="
@@ -1825,7 +1889,6 @@ function Home() {
                 hover:text-white
               "
             >
-
               Explore About
 
               <ArrowUpRight
@@ -1838,15 +1901,10 @@ function Home() {
                   group-hover:-translate-y-1
                 "
               />
-
             </Link>
-
           </div>
-
         </motion.div>
-
       </section>
-
 
       {/* =====================================================
           CHOOSE YOUR STORY
@@ -1861,9 +1919,7 @@ function Home() {
           md:py-40
         "
       >
-
         <div className="mx-auto max-w-7xl">
-
           <motion.div
             initial={{
               opacity: 0,
@@ -1882,7 +1938,6 @@ function Home() {
               ease: EASE,
             }}
           >
-
             <p
               className="
                 mb-7
@@ -1909,9 +1964,7 @@ function Home() {
               <br />
               celebrating?
             </h2>
-
           </motion.div>
-
 
           <div
             className="
@@ -1922,9 +1975,7 @@ function Home() {
               border-white/10
             "
           >
-
             {services.map((service) => (
-
               <Link
                 key={service.number}
                 to={service.link}
@@ -1937,7 +1988,6 @@ function Home() {
                   md:py-10
                 "
               >
-
                 <div
                   className="
                     flex
@@ -1946,7 +1996,6 @@ function Home() {
                     md:gap-10
                   "
                 >
-
                   <span
                     className="
                       text-[8px]
@@ -1971,9 +2020,7 @@ function Home() {
                   >
                     {service.title}
                   </h3>
-
                 </div>
-
 
                 <ArrowUpRight
                   size={20}
@@ -1987,17 +2034,11 @@ function Home() {
                     group-hover:text-white
                   "
                 />
-
               </Link>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           SERVICES
@@ -2014,7 +2055,6 @@ function Home() {
           md:py-48
         "
       >
-
         <motion.div
           initial={{
             opacity: 0,
@@ -2039,7 +2079,6 @@ function Home() {
             md:mb-28
           "
         >
-
           <p
             className="
               mb-7
@@ -2052,7 +2091,6 @@ function Home() {
             What we create
           </p>
 
-
           <div
             className="
               flex
@@ -2063,7 +2101,6 @@ function Home() {
               md:justify-between
             "
           >
-
             <h2
               className="
                 max-w-5xl
@@ -2080,7 +2117,6 @@ function Home() {
               that matter.
             </h2>
 
-
             <p
               className="
                 max-w-sm
@@ -2094,11 +2130,8 @@ function Home() {
               stories around the people,
               atmosphere and emotion.
             </p>
-
           </div>
-
         </motion.div>
-
 
         <div
           className="
@@ -2110,9 +2143,7 @@ function Home() {
             sm:grid-cols-2
           "
         >
-
           {services.map((service, index) => (
-
             <motion.div
               key={service.number}
               initial={{
@@ -2133,7 +2164,6 @@ function Home() {
                 ease: EASE,
               }}
             >
-
               <Link
                 to={service.link}
                 className="
@@ -2145,11 +2175,11 @@ function Home() {
                   bg-neutral-900
                 "
               >
-
                 <motion.div
                   style={{
                     y:
-                      index === 0 || index === 1
+                      index === 0 ||
+                      index === 1
                         ? servicesImageY
                         : undefined,
                   }}
@@ -2158,7 +2188,6 @@ function Home() {
                     inset-0
                   "
                 >
-
                   <SafeImage
                     src={service.image}
                     fallback="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=90"
@@ -2175,9 +2204,7 @@ function Home() {
                       group-hover:scale-[1.07]
                     "
                   />
-
                 </motion.div>
-
 
                 <div
                   className="
@@ -2201,7 +2228,6 @@ function Home() {
                   "
                 />
 
-
                 <div
                   className="
                     absolute
@@ -2213,7 +2239,6 @@ function Home() {
                     justify-between
                   "
                 >
-
                   <span
                     className="
                       text-[8px]
@@ -2224,7 +2249,6 @@ function Home() {
                   >
                     {service.number}
                   </span>
-
 
                   <span
                     className="
@@ -2244,16 +2268,12 @@ function Home() {
                       group-hover:text-black
                     "
                   >
-
                     <ArrowUpRight
                       size={15}
                       strokeWidth={1}
                     />
-
                   </span>
-
                 </div>
-
 
                 <div
                   className="
@@ -2263,7 +2283,6 @@ function Home() {
                     right-6
                   "
                 >
-
                   <h3
                     className="
                       text-4xl
@@ -2274,7 +2293,6 @@ function Home() {
                   >
                     {service.title}
                   </h3>
-
 
                   <p
                     className="
@@ -2288,17 +2306,11 @@ function Home() {
                   >
                     {service.description}
                   </p>
-
                 </div>
-
               </Link>
-
             </motion.div>
-
           ))}
-
         </div>
-
 
         <div
           className="
@@ -2307,7 +2319,6 @@ function Home() {
             max-w-7xl
           "
         >
-
           <Link
             to="/services"
             className="
@@ -2324,7 +2335,6 @@ function Home() {
               hover:text-white
             "
           >
-
             Explore all services
 
             <ArrowRight
@@ -2336,13 +2346,9 @@ function Home() {
                 group-hover:translate-x-1
               "
             />
-
           </Link>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           OUR PROCESS
@@ -2359,9 +2365,7 @@ function Home() {
           md:py-44
         "
       >
-
         <div className="mx-auto max-w-7xl">
-
           <motion.div
             initial={{
               opacity: 0,
@@ -2384,7 +2388,6 @@ function Home() {
               md:mb-28
             "
           >
-
             <p
               className="
                 mb-7
@@ -2413,9 +2416,7 @@ function Home() {
               <br />
               to lasting memory.
             </h2>
-
           </motion.div>
-
 
           <div
             className="
@@ -2426,9 +2427,7 @@ function Home() {
               md:grid-cols-2
             "
           >
-
             {processSteps.map((step, index) => (
-
               <motion.div
                 key={step.number}
                 initial={{
@@ -2459,7 +2458,6 @@ function Home() {
                   md:[&:nth-child(2n)]:border-r-0
                 "
               >
-
                 <div
                   className="
                     flex
@@ -2468,7 +2466,6 @@ function Home() {
                     gap-8
                   "
                 >
-
                   <span
                     className="
                       text-[9px]
@@ -2479,7 +2476,6 @@ function Home() {
                   >
                     {step.number}
                   </span>
-
 
                   <ArrowUpRight
                     size={18}
@@ -2493,9 +2489,7 @@ function Home() {
                       group-hover:text-white
                     "
                   />
-
                 </div>
-
 
                 <h3
                   className="
@@ -2508,7 +2502,6 @@ function Home() {
                 >
                   {step.title}
                 </h3>
-
 
                 <p
                   className="
@@ -2523,17 +2516,11 @@ function Home() {
                 >
                   {step.description}
                 </p>
-
               </motion.div>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           STORIES WITH SOUL
@@ -2549,7 +2536,6 @@ function Home() {
           border-white/10
         "
       >
-
         <motion.div
           style={{
             y: soulImageY,
@@ -2561,7 +2547,6 @@ function Home() {
             transform-gpu
           "
         >
-
           <SafeImage
             src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=2400&q=90"
             fallback="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2400&q=90"
@@ -2574,9 +2559,7 @@ function Home() {
               object-cover
             "
           />
-
         </motion.div>
-
 
         <div
           className="
@@ -2597,7 +2580,6 @@ function Home() {
           "
         />
 
-
         <div
           className="
             relative
@@ -2610,7 +2592,6 @@ function Home() {
             md:pt-36
           "
         >
-
           <motion.p
             initial={{
               opacity: 0,
@@ -2636,9 +2617,7 @@ function Home() {
           >
             Stories with soul
           </motion.p>
-
         </div>
-
 
         {/* MARQUEE */}
 
@@ -2655,7 +2634,6 @@ function Home() {
             md:py-10
           "
         >
-
           <motion.div
             animate={
               reduceMotion
@@ -2675,9 +2653,7 @@ function Home() {
               whitespace-nowrap
             "
           >
-
             {[0, 1].map((set) => (
-
               <div
                 key={set}
                 className="
@@ -2692,7 +2668,6 @@ function Home() {
                   md:text-base
                 "
               >
-
                 <span>Weddings</span>
 
                 <span className="text-white/25">
@@ -2728,15 +2703,10 @@ function Home() {
                 <span className="text-white/25">
                   ✦
                 </span>
-
               </div>
-
             ))}
-
           </motion.div>
-
         </div>
-
 
         {/* SOUL STATEMENT */}
 
@@ -2768,7 +2738,6 @@ function Home() {
             md:pb-36
           "
         >
-
           <div
             className="
               flex
@@ -2779,7 +2748,6 @@ function Home() {
               md:justify-between
             "
           >
-
             <h2
               className="
                 max-w-5xl
@@ -2796,7 +2764,6 @@ function Home() {
               between the moments.
             </h2>
 
-
             <p
               className="
                 max-w-sm
@@ -2810,13 +2777,9 @@ function Home() {
               nobody planned. That's where
               the real story lives.
             </p>
-
           </div>
-
         </motion.div>
-
       </section>
-
 
       {/* =====================================================
           BRAND PHILOSOPHY
@@ -2831,7 +2794,6 @@ function Home() {
           md:py-44
         "
       >
-
         <div
           className="
             mx-auto
@@ -2842,7 +2804,6 @@ function Home() {
             md:grid-cols-12
           "
         >
-
           <motion.div
             initial={{
               opacity: 0,
@@ -2860,7 +2821,6 @@ function Home() {
             }}
             className="md:col-span-7"
           >
-
             <p
               className="
                 mb-8
@@ -2872,7 +2832,6 @@ function Home() {
             >
               Our philosophy
             </p>
-
 
             <h2
               className="
@@ -2893,9 +2852,7 @@ function Home() {
                 what happened.
               </span>
             </h2>
-
           </motion.div>
-
 
           <motion.div
             initial={{
@@ -2920,7 +2877,6 @@ function Home() {
               md:col-span-5
             "
           >
-
             <p
               className="
                 max-w-md
@@ -2937,7 +2893,6 @@ function Home() {
               when nobody is looking.
             </p>
 
-
             <div
               className="
                 mt-12
@@ -2948,7 +2903,6 @@ function Home() {
                 py-8
               "
             >
-
               <div>
                 <p className="text-2xl font-light md:text-3xl">
                   01
@@ -2966,7 +2920,6 @@ function Home() {
                   Emotion
                 </p>
               </div>
-
 
               <div>
                 <p className="text-2xl font-light md:text-3xl">
@@ -2986,7 +2939,6 @@ function Home() {
                 </p>
               </div>
 
-
               <div>
                 <p className="text-2xl font-light md:text-3xl">
                   03
@@ -3004,15 +2956,10 @@ function Home() {
                   Story
                 </p>
               </div>
-
             </div>
-
           </motion.div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           CLIENT LOVE
@@ -3029,11 +2976,7 @@ function Home() {
           md:py-40
         "
       >
-
         <div className="mx-auto max-w-7xl">
-
-          {/* SECTION INTRO */}
-
           <motion.div
             initial={{
               opacity: 0,
@@ -3052,7 +2995,6 @@ function Home() {
               ease: EASE,
             }}
           >
-
             <p
               className="
                 mb-7
@@ -3076,7 +3018,6 @@ function Home() {
                 md:justify-between
               "
             >
-
               <h2
                 className="
                   max-w-5xl
@@ -3107,13 +3048,8 @@ function Home() {
                 is knowing how it felt to the people
                 who trusted us with their moments.
               </p>
-
             </div>
-
           </motion.div>
-
-
-          {/* TESTIMONIAL GRID */}
 
           <div
             className="
@@ -3128,7 +3064,6 @@ function Home() {
               md:grid-cols-2
             "
           >
-
             {[
               {
                 quote:
@@ -3171,9 +3106,7 @@ function Home() {
                 name: "Arjun & Kavya",
                 type: "Wedding",
               },
-
             ].map((testimonial, index) => (
-
               <motion.article
                 key={testimonial.name}
                 initial={{
@@ -3206,9 +3139,6 @@ function Home() {
                   lg:p-12
                 "
               >
-
-                {/* QUOTE MARK */}
-
                 <div
                   className="
                     text-5xl
@@ -3222,9 +3152,6 @@ function Home() {
                 >
                   “
                 </div>
-
-
-                {/* QUOTE */}
 
                 <p
                   className="
@@ -3242,9 +3169,6 @@ function Home() {
                   {testimonial.quote}
                 </p>
 
-
-                {/* CLIENT */}
-
                 <div
                   className="
                     mt-12
@@ -3257,9 +3181,7 @@ function Home() {
                     pt-6
                   "
                 >
-
                   <div>
-
                     <p
                       className="
                         text-sm
@@ -3282,9 +3204,7 @@ function Home() {
                     >
                       {testimonial.type}
                     </p>
-
                   </div>
-
 
                   <span
                     className="
@@ -3299,17 +3219,10 @@ function Home() {
                   >
                     Client story
                   </span>
-
                 </div>
-
               </motion.article>
-
             ))}
-
           </div>
-
-
-          {/* CLOSING LINE */}
 
           <motion.div
             initial={{
@@ -3339,7 +3252,6 @@ function Home() {
               md:justify-between
             "
           >
-
             <p
               className="
                 max-w-xl
@@ -3352,7 +3264,6 @@ function Home() {
               That's why every UNBOUND experience
               begins with listening.
             </p>
-
 
             <Link
               to="/contact"
@@ -3371,7 +3282,6 @@ function Home() {
                 hover:text-white
               "
             >
-
               Tell us your story
 
               <ArrowRight
@@ -3383,15 +3293,10 @@ function Home() {
                   group-hover:translate-x-1
                 "
               />
-
             </Link>
-
           </motion.div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           CHECK YOUR DATE
@@ -3408,7 +3313,6 @@ function Home() {
           md:py-32
         "
       >
-
         <div
           className="
             mx-auto
@@ -3421,9 +3325,7 @@ function Home() {
             md:justify-between
           "
         >
-
           <div>
-
             <p
               className="
                 mb-5
@@ -3449,9 +3351,7 @@ function Home() {
               <br />
               we can create together.
             </h2>
-
           </div>
-
 
           <Link
             to="/contact"
@@ -3477,7 +3377,6 @@ function Home() {
               hover:text-black
             "
           >
-
             CHECK YOUR DATE
 
             <ArrowUpRight
@@ -3490,13 +3389,9 @@ function Home() {
                 group-hover:-translate-y-1
               "
             />
-
           </Link>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           FAQ
@@ -3511,9 +3406,7 @@ function Home() {
           md:py-40
         "
       >
-
         <div className="mx-auto max-w-7xl">
-
           <div
             className="
               grid
@@ -3522,7 +3415,6 @@ function Home() {
               md:grid-cols-12
             "
           >
-
             <motion.div
               initial={{
                 opacity: 0,
@@ -3542,7 +3434,6 @@ function Home() {
               }}
               className="md:col-span-4"
             >
-
               <p
                 className="
                   text-[8px]
@@ -3568,12 +3459,9 @@ function Home() {
                 <br />
                 answered.
               </h2>
-
             </motion.div>
 
-
             <div className="md:col-span-8">
-
               {[
                 {
                   question:
@@ -3603,7 +3491,6 @@ function Home() {
                     "Yes. Our work spans both photography and cinematic storytelling.",
                 },
               ].map((faq, index) => (
-
                 <motion.details
                   key={faq.question}
                   initial={{
@@ -3631,7 +3518,6 @@ function Home() {
                     last:border-b
                   "
                 >
-
                   <summary
                     className="
                       flex
@@ -3646,7 +3532,6 @@ function Home() {
                       md:text-2xl
                     "
                   >
-
                     <span>
                       {faq.question}
                     </span>
@@ -3670,9 +3555,7 @@ function Home() {
                     >
                       +
                     </span>
-
                   </summary>
-
 
                   <p
                     className="
@@ -3685,19 +3568,12 @@ function Home() {
                   >
                     {faq.answer}
                   </p>
-
                 </motion.details>
-
               ))}
-
             </div>
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           SOCIAL DISCOVERY
@@ -3715,7 +3591,6 @@ function Home() {
           md:py-32
         "
       >
-
         <motion.div
           initial={{
             opacity: 0,
@@ -3734,7 +3609,6 @@ function Home() {
             ease: EASE,
           }}
         >
-
           <p
             className="
               mb-6
@@ -3746,7 +3620,6 @@ function Home() {
           >
             Follow the story
           </p>
-
 
           <h2
             className="
@@ -3761,7 +3634,6 @@ function Home() {
             More stories.
           </h2>
 
-
           <p
             className="
               mx-auto
@@ -3775,9 +3647,6 @@ function Home() {
             Discover recent work, behind-the-scenes moments
             and the world we're building around UNBOUND.
           </p>
-
-
-          {/* Replace this URL with the actual UNBOUND Instagram */}
 
           <a
             href="https://instagram.com/"
@@ -3802,7 +3671,6 @@ function Home() {
               hover:text-white
             "
           >
-
             Instagram
 
             <ArrowUpRight
@@ -3815,13 +3683,9 @@ function Home() {
                 group-hover:-translate-y-1
               "
             />
-
           </a>
-
         </motion.div>
-
       </section>
-
 
       {/* =====================================================
           CONTACT / CHECK YOUR DATE
@@ -3837,7 +3701,6 @@ function Home() {
           border-white/10
         "
       >
-
         <motion.div
           style={{
             y: contactImageY,
@@ -3849,7 +3712,6 @@ function Home() {
             transform-gpu
           "
         >
-
           <SafeImage
             src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2400&q=90"
             fallback="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=2400&q=90"
@@ -3862,9 +3724,7 @@ function Home() {
               object-cover
             "
           />
-
         </motion.div>
-
 
         <div
           className="
@@ -3896,7 +3756,6 @@ function Home() {
           "
         />
 
-
         <div
           className="
             relative
@@ -3911,9 +3770,7 @@ function Home() {
             md:px-10
           "
         >
-
           <div className="w-full">
-
             <div
               className="
                 mb-16
@@ -3922,7 +3779,6 @@ function Home() {
                 justify-between
               "
             >
-
               <motion.p
                 initial={{
                   opacity: 0,
@@ -3949,7 +3805,6 @@ function Home() {
                 03 — Let's Talk
               </motion.p>
 
-
               <p
                 className="
                   text-[7px]
@@ -3961,9 +3816,7 @@ function Home() {
               >
                 Your story starts here
               </p>
-
             </div>
-
 
             <motion.h2
               initial={{
@@ -3997,7 +3850,6 @@ function Home() {
               TALK.
             </motion.h2>
 
-
             <motion.div
               initial={{
                 opacity: 0,
@@ -4024,7 +3876,6 @@ function Home() {
                 md:justify-between
               "
             >
-
               <p
                 className="
                   max-w-lg
@@ -4041,7 +3892,6 @@ function Home() {
                 We'll take it from there.
               </p>
 
-
               <div
                 className="
                   flex
@@ -4050,7 +3900,6 @@ function Home() {
                   gap-4
                 "
               >
-
                 <Link
                   to="/contact"
                   className="
@@ -4075,7 +3924,6 @@ function Home() {
                     hover:text-white
                   "
                 >
-
                   CHECK YOUR DATE
 
                   <ArrowUpRight
@@ -4088,9 +3936,7 @@ function Home() {
                       group-hover:-translate-y-1
                     "
                   />
-
                 </Link>
-
 
                 <Link
                   to="/contact"
@@ -4113,7 +3959,6 @@ function Home() {
                     hover:text-white
                   "
                 >
-
                   Start a conversation
 
                   <ArrowRight
@@ -4125,19 +3970,12 @@ function Home() {
                       group-hover:translate-x-1
                     "
                   />
-
                 </Link>
-
               </div>
-
             </motion.div>
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* =====================================================
           FOOTER
@@ -4154,9 +3992,7 @@ function Home() {
           md:py-16
         "
       >
-
         <div className="mx-auto max-w-7xl">
-
           <div
             className="
               flex
@@ -4167,9 +4003,7 @@ function Home() {
               md:justify-between
             "
           >
-
             <div>
-
               <p
                 className="
                   text-lg
@@ -4179,7 +4013,6 @@ function Home() {
               >
                 UNBOUND
               </p>
-
 
               <p
                 className="
@@ -4192,9 +4025,7 @@ function Home() {
               >
                 Weddings · Events · Stories
               </p>
-
             </div>
-
 
             <div
               className="
@@ -4208,7 +4039,6 @@ function Home() {
                 text-white/30
               "
             >
-
               <Link
                 to="/stories"
                 className="transition-colors hover:text-white"
@@ -4236,11 +4066,8 @@ function Home() {
               >
                 Contact
               </Link>
-
             </div>
-
           </div>
-
 
           <div
             className="
@@ -4260,7 +4087,6 @@ function Home() {
               md:justify-between
             "
           >
-
             <span>
               © 2026 UnboundEvents & CO
             </span>
@@ -4268,16 +4094,11 @@ function Home() {
             <span>
               Moments without limits
             </span>
-
           </div>
-
         </div>
-
       </footer>
-
     </main>
   );
 }
-
 
 export default Home;

@@ -32,13 +32,13 @@ function Contact() {
     email: "icymac.in@gmail.com",
 
     address:
-      "Suit No II, F 103, H No 6-3-1112/7 Snow Drop Apts, Near Keerthilal Jewellers, Somajiguda, Telangana, India - 500016",
+      "MG Road, Anantapur Bypass, N A S Layout, Ballari, Karnataka, India - 583101",
 
     instagram:
       "https://www.instagram.com/unboundevents.co?igsh=MzZvYmJnaHZoYm1r&utm_source=qr",
 
     maps:
-      "https://www.google.com/maps/search/?api=1&query=Snow+Drop+Apts%2C+Somajiguda%2C+Hyderabad%2C+Telangana+500016",
+      "https://www.google.com/maps/search/?api=1&query=MG+Road%2C+Anantapur+Bypass%2C+N+A+S+Layout%2C+Ballari%2C+Karnataka+583101",
   };
 
 
@@ -1017,7 +1017,7 @@ function Contact() {
               >
                 Based in
                 <br />
-                Hyderabad.
+                Ballari.
               </h2>
 
             </motion.div>
@@ -1191,7 +1191,7 @@ function Contact() {
               <iframe
                 title="UnboundEvents & CO location"
 
-                src="https://www.google.com/maps?q=Snow%20Drop%20Apartments%2C%20Somajiguda%2C%20Hyderabad%2C%20Telangana%20500016&output=embed"
+                src="https://www.google.com/maps?q=MG%20Road%2C%20Anantapur%20Bypass%2C%20N%20A%20S%20Layout%2C%20Ballari%2C%20Karnataka%20583101&output=embed"
 
                 className="
                   absolute
@@ -1263,7 +1263,7 @@ function Contact() {
                     text-white
                   "
                 >
-                  Somajiguda
+                  N A S Layout
                 </p>
 
 
@@ -1276,7 +1276,7 @@ function Contact() {
                     text-white/35
                   "
                 >
-                  Hyderabad · Telangana
+                  Ballari · Karnataka
                 </p>
 
               </div>
@@ -1360,7 +1360,7 @@ function Contact() {
                         text-white/80
                       "
                     >
-                      Snow Drop Apts · Somajiguda
+                      MG Road · N A S Layout · Ballari
                     </p>
 
                   </div>
@@ -1517,7 +1517,7 @@ function Contact() {
 
 
             {/* =================================================
-                SMALL IMAGE — FIXED
+                SMALL IMAGE
             ================================================= */}
 
             <div
